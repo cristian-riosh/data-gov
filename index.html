@@ -270,7 +270,7 @@ body {
         <div class="desc">La dependencia que administra el sistema fuente. <strong>REPOX materializa la responsabilidad del Data Owner</strong> obligando técnicamente a que ningún dato ingrese a la plataforma sin su autorización explícita, y que ningún campo clasificado como PII sea accesible sin su aprobación en Purview.</div>
         <div class="sl">Ejemplos de Data Owners en la SDM</div>
         <ul class="lst">
-          <li><strong>OFV — Oficina de Seguridad Vial:</strong> datos de siniestros viales</li>
+          <li><strong>OSV — Oficina de Seguridad Vial:</strong> datos de siniestros viales</li>
           <li><strong>DIM — Dirección de Inteligencia para la Movilidad:</strong> sistema de bicicletas compartidas, estudios y monitoreo de movilidad</li>
           <li><strong>SCC — Subsecretaría de Servicios a la Ciudadanía:</strong> comparendos, Registro Distrital Automotor (RDA)</li>
         </ul>
@@ -344,13 +344,13 @@ body {
         <div class="desc">Sistemas operacionales administrados por las <strong>dependencias de la SDM que actúan como Data Owners</strong>. Cada dependencia es responsable de su sistema en origen. REPOX obtiene una copia analítica — el sistema operacional sigue siendo la fuente oficial del dato.</div>
         <div class="sl">Sistemas fuente por Data Owner (dependencia SDM)</div>
         <ul class="lst">
-          <li><strong>OFV — Oficina de Seguridad Vial:</strong> sistema de siniestros viales — registros de accidentes, georeferenciación, actores involucrados</li>
+          <li><strong>OSV — Oficina de Seguridad Vial:</strong> sistema de siniestros viales — registros de accidentes, georeferenciación, actores involucrados</li>
           <li><strong>DIM — Dirección de Inteligencia para la Movilidad:</strong> sistema de bicicletas compartidas (trips, disponibilidad, estaciones), estudios de movilidad, monitoreo de indicadores</li>
           <li><strong>SCC — Subsecretaría de Servicios a la Ciudadanía:</strong> sistema de comparendos (infracciones de tránsito), Registro Distrital Automotor — RDA (vehículos, propietarios, trámites)</li>
         </ul>
         <div class="sl">Principio de réplica</div>
         <ul class="lst">
-          <li>REPOX obtiene una <strong>copia analítica</strong> — nunca escribe en los sistemas fuente</li>
+          <li>REPOX solo lee desde los sistemas fuente — nunca modifica ni escribe en ellos</li>
           <li>Ante discrepancia, el sistema fuente (administrado por el Data Owner) es la fuente de verdad</li>
           <li>Toda ingesta requiere Data Contract firmado por la dependencia Data Owner del sistema</li>
         </ul>
@@ -423,7 +423,7 @@ body {
         <div class="db">
           <div class="dbt">Ejemplos concretos en SDM <span class="dtag tp">Data Owners</span></div>
           <div class="dbb"><ul>
-            <li><strong>OFV</strong> mantiene la ficha del dataset de Siniestros en Purview</li>
+            <li><strong>OSV</strong> mantiene la ficha del dataset de Siniestros en Purview</li>
             <li><strong>DIM</strong> mantiene las fichas de Bicicletas Compartidas y Estudios de Movilidad</li>
             <li><strong>SCC</strong> mantiene las fichas de Comparendos y Registro Distrital Automotor</li>
           </ul></div>
@@ -459,7 +459,7 @@ body {
         <div class="db">
           <div class="dbt">Ejemplos en SDM <span class="dtag tp">quién firma</span></div>
           <div class="dbb"><ul>
-            <li><strong>OFV</strong> firma el contrato de ingesta del sistema de Siniestros</li>
+            <li><strong>OSV</strong> firma el contrato de ingesta del sistema de Siniestros</li>
             <li><strong>DIM</strong> firma el contrato de ingesta de Bicicletas Compartidas y Estudios</li>
             <li><strong>SCC</strong> firma el contrato de ingesta de Comparendos y RDA</li>
           </ul></div>
@@ -852,7 +852,7 @@ const TD={
   cdo:'Aprueba REPOX como plataforma institucional que materializa la gobernanza SDM',
   council:'Define las políticas que REPOX ejecuta técnicamente como controles activos',
   ciso:'Define controles de seguridad y privacidad que REPOX implementa y audita',
-  owner:'Dependencia SDM que administra el sistema fuente — OFV, DIM, SCC y otras',
+  owner:'Dependencia SDM que administra el sistema fuente — OSV, DIM, SCC y otras',
   steward:'Opera los instrumentos de gobernanza que REPOX expone: catálogo, DQ, linaje',
   eng:'Construye e implementa técnicamente los controles de gobernanza en REPOX',
   repox:'Plataforma que materializa y ejecuta los controles de gobernanza de la SDM sobre Azure',
