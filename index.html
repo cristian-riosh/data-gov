@@ -8,170 +8,154 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
 
 :root {
-  --bg:      #06090f;
-  --bg2:     #0b1018;
-  --surf:    #0e1622;
-  --surf2:   #121d2e;
-  --border:  #182438;
-  --border2: #1f2f4a;
-  --text:    #a8c0d8;
-  --tdim:    #3d526a;
-  --tbright: #d8eeff;
+  --bg:      #ffffff;
+  --bg2:     #f4f6f9;
+  --surf:    #f8f9fb;
+  --surf2:   #eef1f6;
+  --border:  #d4dbe8;
+  --border2: #b8c4d8;
+  --text:    #2c3a52;
+  --tdim:    #7a8fa8;
+  --tbright: #0f1e34;
   --mono: 'IBM Plex Mono', monospace;
   --sans: 'IBM Plex Sans', sans-serif;
-
-  --cdo:     #e91e8c;
-  --council: #4a5acd;
-  --owner:   #f4511e;
-  --steward: #9c27b0;
-  --eng:     #00bcd4;
-  --consumer:#43a047;
-  --ciso:    #fb8c00;
-  --repox:   #0078d4;
-  --src:     #37474f;
 }
 
 * { box-sizing:border-box; margin:0; padding:0; }
-
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--sans);
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  background:var(--bg); color:var(--text); font-family:var(--sans);
+  height:100vh; overflow:hidden; display:flex; flex-direction:column;
 }
 
-/* ── HEADER ── */
 .hdr {
-  display: flex; align-items: center; justify-content: space-between; gap:16px;
-  padding: 12px 28px;
-  background: var(--bg2);
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  padding:11px 28px; background:var(--bg2); border-bottom:1px solid var(--border);
+  flex-shrink:0;
 }
 .hdr-left { display:flex; align-items:center; gap:14px; }
-.repox-pill {
-  background: var(--repox); color:#fff;
-  font-family: var(--mono); font-size:11px; font-weight:600;
-  padding: 5px 12px; border-radius:5px; letter-spacing:2.5px;
+.rpill {
+  background:#0078d4; color:#fff; font-family:var(--mono); font-size:11px;
+  font-weight:600; padding:5px 12px; border-radius:5px; letter-spacing:2.5px;
 }
-.hdr-title { font-size:14px; font-weight:600; color:var(--tbright); line-height:1.3; }
-.hdr-sub   { font-size:10px; color:var(--tdim); margin-top:2px; }
-.hdr-hint  { font-family:var(--mono); font-size:9px; color:var(--tdim); text-align:right; line-height:1.8; }
+.htitle { font-size:16px; font-weight:600; color:var(--tbright); line-height:1.3; }
+.hsub   { font-size:12px; color:var(--tdim); margin-top:2px; }
+.hhint  { display:none; }
 
-/* ── LAYOUT ── */
 .body { display:grid; grid-template-columns:1fr 348px; flex:1; overflow:hidden; }
 
-/* ── DIAGRAM ── */
 .diag { position:relative; overflow:hidden; }
 #svg  { width:100%; height:100%; }
 
-/* ── PANEL ── */
 .panel {
-  display:flex; flex-direction:column;
-  background: var(--surf);
-  border-left: 1px solid var(--border);
-  overflow: hidden;
+  display:flex; flex-direction:column; background:var(--surf);
+  border-left:1px solid var(--border); overflow:hidden;
 }
-.p-hd {
-  padding:15px 18px 12px; border-bottom:1px solid var(--border); flex-shrink:0;
-}
-.p-tag   { font-family:var(--mono); font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--tdim); margin-bottom:4px; }
-.p-title { font-size:14px; font-weight:600; color:var(--tbright); }
-.p-desc  { font-size:11px; color:var(--tdim); margin-top:3px; line-height:1.5; }
-.p-body  { flex:1; overflow-y:auto; padding:15px 18px; }
-.p-body::-webkit-scrollbar { width:3px; }
-.p-body::-webkit-scrollbar-thumb { background:var(--border2); }
+.phd { padding:15px 18px 12px; border-bottom:1px solid var(--border); flex-shrink:0; }
+.ptag   { font-family:var(--mono); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--tdim); margin-bottom:4px; }
+.ptitle { font-size:16px; font-weight:600; color:var(--tbright); }
+.pdesc  { font-size:13px; color:var(--tdim); margin-top:3px; line-height:1.5; }
+.pbody  { flex:1; overflow-y:auto; padding:15px 18px; }
+.pbody::-webkit-scrollbar { width:3px; }
+.pbody::-webkit-scrollbar-thumb { background:var(--border2); }
 
-/* DEFAULT */
-.def { height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; opacity:.3; }
-.def-ico { font-size:24px; }
-.def-txt { font-size:11px; color:var(--tdim); text-align:center; line-height:1.6; max-width:150px; }
+.def { height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; opacity:.4; }
+.def-ico { font-size:26px; }
+.def-txt { font-size:13px; color:var(--tdim); text-align:center; line-height:1.6; max-width:160px; }
 
-/* CARDS */
 .card { display:none; }
 .card.active { display:block; }
 
 .badge {
-  display:inline-flex; align-items:center; gap:6px;
-  padding:4px 10px; border-radius:4px;
-  font-family:var(--mono); font-size:10px; font-weight:600;
-  letter-spacing:1px; text-transform:uppercase; margin-bottom:11px;
+  display:inline-flex; align-items:center; gap:6px; padding:5px 11px; border-radius:4px;
+  font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:1px;
+  text-transform:uppercase; margin-bottom:12px;
 }
-.badge .dot { width:6px; height:6px; border-radius:50%; }
+.badge .dot { width:7px; height:7px; border-radius:50%; }
 
 .desc {
-  font-size:11.5px; color:var(--text); line-height:1.65; margin-bottom:14px;
-  padding:9px 11px; background:var(--surf2);
-  border-left:2px solid var(--border2); border-radius:0 4px 4px 0;
+  font-size:13px; color:var(--text); line-height:1.7; margin-bottom:14px;
+  padding:10px 12px; background:var(--surf2);
+  border-left:3px solid var(--border2); border-radius:0 4px 4px 0;
 }
-
-.sl { font-family:var(--mono); font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--tdim); margin:14px 0 7px; }
+.sl { font-family:var(--mono); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--tdim); margin:15px 0 8px; }
 .sl:first-of-type { margin-top:0; }
-
-.lst { list-style:none; display:flex; flex-direction:column; gap:4px; }
+.lst { list-style:none; display:flex; flex-direction:column; gap:5px; }
 .lst li {
-  font-size:11px; color:var(--text); padding:6px 9px;
+  font-size:12.5px; color:var(--text); padding:7px 10px;
   background:var(--surf2); border:1px solid var(--border);
-  border-radius:3px; display:flex; gap:6px; align-items:flex-start; line-height:1.5;
+  border-radius:3px; display:flex; gap:6px; align-items:flex-start; line-height:1.55;
 }
-.lst li::before { content:'→'; color:var(--tdim); flex-shrink:0; font-size:10px; }
+.lst li::before { content:'→'; color:var(--tdim); flex-shrink:0; font-size:11px; }
 
 .tech-row { display:flex; flex-wrap:wrap; gap:5px; margin:7px 0; }
 .tch {
-  font-family:var(--mono); font-size:8.5px; padding:3px 7px;
-  border-radius:3px; border:1px solid var(--repox);
-  color:var(--repox); background:rgba(0,120,212,.07);
+  font-family:var(--mono); font-size:10px; padding:3px 8px; border-radius:3px;
+  border:1px solid #0078d4; color:#0078d4; background:rgba(0,120,212,.07);
 }
 
-/* INTERACTION */
 .int-hd { display:flex; align-items:center; gap:7px; margin-bottom:10px; flex-wrap:wrap; }
-.chip { padding:3px 9px; border-radius:20px; font-size:10px; font-weight:600; font-family:var(--mono); }
-.arr-ic { font-size:11px; color:var(--tdim); }
-
+.chip { padding:4px 10px; border-radius:20px; font-size:11px; font-weight:600; font-family:var(--mono); }
+.arric { font-size:13px; color:var(--tdim); }
 .itype {
-  font-family:var(--mono); font-size:9px; letter-spacing:1.5px;
-  text-transform:uppercase; padding:3px 7px; border-radius:3px; border:1px solid;
-  margin-bottom:11px; display:inline-block;
+  font-family:var(--mono); font-size:10px; letter-spacing:1.5px; text-transform:uppercase;
+  padding:3px 8px; border-radius:3px; border:1px solid; margin-bottom:12px; display:inline-block;
 }
-.tp { color:#fb8c00; border-color:#fb8c0040; background:#fb8c0008; }
-.te { color:#43a047; border-color:#43a04740; background:#43a04708; }
-.tr { color:#9c27b0; border-color:#9c27b040; background:#9c27b008; }
-.tc { color:#00bcd4; border-color:#00bcd440; background:#00bcd408; }
-.tx { color:#0078d4; border-color:#0078d440; background:#0078d408; }
-
-.int-desc { font-size:11.5px; color:var(--text); line-height:1.65; margin-bottom:11px; }
-
-.db  { background:var(--surf2); border:1px solid var(--border); border-radius:4px; overflow:hidden; margin-bottom:7px; }
-.dbt { font-family:var(--mono); font-size:10px; padding:6px 9px; border-bottom:1px solid var(--border); color:var(--tbright); display:flex; align-items:center; gap:6px; }
-.dtag { font-size:8px; letter-spacing:1px; text-transform:uppercase; padding:2px 5px; border-radius:2px; border:1px solid; }
-.dbb { padding:7px 9px; font-size:11px; color:var(--text); line-height:1.6; }
-.dbb ul { list-style:none; display:flex; flex-direction:column; gap:3px; margin-top:4px; }
+.tp { color:#fb8c00; border-color:#fb8c0040; background:#fb8c0010; }
+.te { color:#2e7d32; border-color:#2e7d3240; background:#2e7d3210; }
+.tr { color:#7b1fa2; border-color:#7b1fa240; background:#7b1fa210; }
+.tc { color:#00838f; border-color:#00838f40; background:#00838f10; }
+.tx { color:#0078d4; border-color:#0078d440; background:#0078d410; }
+.int-desc { font-size:13px; color:var(--text); line-height:1.7; margin-bottom:12px; }
+.db  { background:var(--surf2); border:1px solid var(--border); border-radius:4px; overflow:hidden; margin-bottom:8px; }
+.dbt { font-family:var(--mono); font-size:11px; padding:7px 10px; border-bottom:1px solid var(--border); color:var(--tbright); display:flex; align-items:center; gap:6px; }
+.dtag { font-size:9px; letter-spacing:1px; text-transform:uppercase; padding:2px 6px; border-radius:2px; border:1px solid; }
+.dbb { padding:8px 10px; font-size:12.5px; color:var(--text); line-height:1.6; }
+.dbb ul { list-style:none; display:flex; flex-direction:column; gap:4px; margin-top:5px; }
 .dbb ul li { display:flex; gap:6px; align-items:flex-start; }
-.dbb ul li::before { content:'·'; color:var(--tdim); flex-shrink:0; }
+.dbb ul li::before { content:'·'; color:var(--tdim); flex-shrink:0; font-size:13px; }
 
-/* LEGEND */
-.legend {
-  position:absolute; bottom:12px; left:12px;
-  display:flex; flex-direction:column; gap:5px; pointer-events:none;
-}
-.leg { display:flex; align-items:center; gap:6px; font-family:var(--mono); font-size:8.5px; color:var(--tdim); }
+.legend { position:absolute; bottom:12px; left:12px; display:flex; flex-direction:column; gap:5px; pointer-events:none; }
+.leg { display:flex; align-items:center; gap:6px; font-family:var(--mono); font-size:10px; color:var(--tdim); }
 .ll  { width:18px; height:2px; }
 
+.canvas-hint {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  pointer-events: none;
+  z-index: 10;
+}
+.canvas-hint span {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--tdim);
+  background: rgba(255,255,255,0.88);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 9px;
+  display: inline-block;
+  backdrop-filter: blur(4px);
+}
+.canvas-hint span strong {
+  color: #0078d4;
+  font-weight: 600;
+}
+
 /* SVG */
-.ng  { cursor:pointer; }
-.eg  { cursor:pointer; }
+.ng   { cursor:pointer; }
+.eg   { cursor:pointer; }
 .nring { opacity:0; transition:opacity .2s; }
-.ep  { transition:stroke-width .2s; }
-.elb { opacity:.5; transition:opacity .2s; }
-.elt { opacity:.6; transition:opacity .2s, fill .2s; font-family:'IBM Plex Mono',monospace; }
+.ep   { transition:stroke-width .2s; }
+.elb  { opacity:.5; transition:opacity .2s; }
+.elt  { opacity:.6; transition:opacity .2s, fill .2s; font-family:'IBM Plex Mono',monospace; }
 
 .ng:hover .nring { opacity:1; }
-.eg:hover .ep  { stroke-width:3; }
-.eg:hover .elb { opacity:1; }
-.eg:hover .elt { opacity:1; fill:#d8eeff !important; }
+.eg:hover .ep    { stroke-width:3; }
+.eg:hover .elb   { opacity:1; }
+.eg:hover .elt   { opacity:1; fill:#d8eeff !important; }
 
 .sn .nring { opacity:1 !important; }
 .se .ep    { stroke-width:3 !important; }
@@ -183,382 +167,432 @@ body {
 
 <div class="hdr">
   <div class="hdr-left">
-    <div class="repox-pill">REPOX</div>
+    <div class="rpill">REPOX</div>
     <div>
-      <div class="hdr-title">Gobernanza de Datos · SDM</div>
-      <div class="hdr-sub">Roles, interacciones y plataforma analítica unificada sobre Azure</div>
+      <div class="htitle">REPOX como plataforma de Gobernanza de Datos · SDM</div>
+      <div class="hsub">Propuesta: REPOX materializa y ejecuta los controles de gobernanza de la entidad sobre Azure</div>
     </div>
-  </div>
-  <div class="hdr-hint">
-    Clic en <strong style="color:var(--text)">nodo</strong> → detalle del rol / componente<br>
-    Clic en <strong style="color:var(--text)">arista</strong> → política, entregable o flujo
   </div>
 </div>
 
 <div class="body">
   <div class="diag">
-    <svg id="svg" viewBox="0 0 860 590"></svg>
+    <svg id="svg" viewBox="0 0 800 580" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;display:block;"></svg>
+    <div class="canvas-hint">
+      <span>⬡ Clic en <strong>nodo</strong> → detalle del rol</span>
+      <span>⟿ Clic en <strong>arista</strong> → flujo y entregables</span>
+    </div>
     <div class="legend">
       <div class="leg"><div class="ll" style="background:#4a5acd"></div>Política / mandato</div>
-      <div class="leg"><div class="ll" style="background:#43a047;border-top:2px dashed #43a047;height:0"></div>Entregable / copia</div>
+      <div class="leg"><div class="ll" style="background:#43a047;height:0;border-top:2px dashed #43a047"></div>Entregable / copia</div>
       <div class="leg"><div class="ll" style="background:#9c27b0"></div>Resp. compartida</div>
       <div class="leg"><div class="ll" style="background:#fb8c00"></div>Control / aprobación</div>
-      <div class="leg"><div class="ll" style="background:#0078d4;border-top:2px dashed #0078d4;height:0"></div>Flujo hacia REPOX</div>
+      <div class="leg"><div class="ll" style="background:#0078d4;height:0;border-top:2px dashed #0078d4"></div>Flujo hacia REPOX</div>
       <div class="leg"><div class="ll" style="background:#00bcd4"></div>Consulta / explotación</div>
     </div>
   </div>
 
   <div class="panel">
-    <div class="p-hd">
-      <div class="p-tag">Detalle seleccionado</div>
-      <div class="p-title" id="pt">Selecciona un elemento</div>
-      <div class="p-desc"  id="pd">Haz clic en un nodo o arista del diagrama.</div>
+    <div class="phd">
+      <div class="ptag">Detalle seleccionado</div>
+      <div class="ptitle" id="pt">Selecciona un elemento</div>
+      <div class="pdesc"  id="pd">Haz clic en un nodo o arista del diagrama.</div>
     </div>
-    <div class="p-body">
+    <div class="pbody">
       <div class="def" id="def">
         <div class="def-ico">⬡</div>
-        <div class="def-txt">Selecciona un nodo o arista para explorar gobernanza, entregables y flujos de REPOX</div>
+        <div class="def-txt">REPOX es la plataforma que materializa y ejecuta los controles de gobernanza. Selecciona un nodo o arista para explorar cómo cada rol interactúa con REPOX.</div>
       </div>
 
       <!-- ══ NODOS ══ -->
-
       <div class="card" id="n-cdo">
-        <div class="badge" style="background:var(--cdo);color:#fff"><span class="dot" style="background:#fff"></span>CDO</div>
-        <div class="desc">Sponsor ejecutivo que aprueba REPOX como proyecto estratégico de la SDM. Sin su respaldo, los Data Owners no tienen mandato real para cumplir sus obligaciones de catálogo.</div>
+        <div class="badge" style="background:#e91e8c;color:#fff"><span class="dot" style="background:#fff"></span>CDO</div>
+        <div class="desc">Sponsor ejecutivo que aprueba REPOX como la <strong>plataforma institucional que materializa la gobernanza de datos</strong> de la SDM. Sin su respaldo, los controles de gobernanza no tienen mandato ni presupuesto para ejecutarse.</div>
         <div class="sl">Responsabilidades clave</div>
         <ul class="lst">
-          <li>Aprobar REPOX como repositorio oficial de analítica de la SDM</li>
-          <li>Asegurar que cada dominio tenga Data Owner designado y activo</li>
-          <li>Revisar KPIs de gobernanza en REPOX trimestralmente</li>
+          <li>Aprobar REPOX como plataforma oficial de gobernanza y analítica de la SDM</li>
+          <li>Asegurar que cada dominio tenga Data Owner designado, con obligaciones concretas en REPOX</li>
+          <li>Revisar trimestralmente los KPIs de ejecución de controles de gobernanza en REPOX</li>
           <li>Resolver escalaciones que el Council no puede resolver</li>
         </ul>
       </div>
 
       <div class="card" id="n-council">
-        <div class="badge" style="background:var(--council);color:#fff"><span class="dot" style="background:#fff"></span>Gov. Council</div>
-        <div class="desc">Comité federado que aprueba políticas de uso de REPOX, estándares de ingesta y contratos de datos cross-dominio. Se reúne periódicamente y actúa por excepción.</div>
-        <div class="sl">Responsabilidades en REPOX</div>
+        <div class="badge" style="background:#4a5acd;color:#fff"><span class="dot" style="background:#fff"></span>Gov. Council</div>
+        <div class="desc">Comité federado que define las políticas que REPOX debe ejecutar como plataforma de gobernanza. <strong>REPOX no puede controlar lo que el Council no ha definido</strong> — cada política aprobada se traduce en un control técnico implementado en la plataforma.</div>
+        <div class="sl">Cómo el Council activa controles en REPOX</div>
         <ul class="lst">
-          <li>Aprobar políticas de ingesta, acceso y retención en REPOX</li>
-          <li>Definir qué dominios son fuentes oficiales en el catálogo</li>
-          <li>Resolver conflictos de definición entre áreas de la SDM</li>
-          <li>Aprobar Data Contracts que cruzan dominios o involucran PII</li>
-          <li>Auditoría semestral de completitud del catálogo en Azure Purview</li>
-        </ul>
-      </div>
-
-      <div class="card" id="n-owner">
-        <div class="badge" style="background:var(--owner);color:#fff"><span class="dot" style="background:#fff"></span>Data Owner</div>
-        <div class="desc">En REPOX, el Data Owner tiene dos obligaciones concretas y no delegables: <strong>(1)</strong> mantener actualizada la ficha de su dataset en Azure Purview, y <strong>(2)</strong> autorizar formalmente al Data Engineer a replicar sus datos hacia el lakehouse.</div>
-        <div class="sl">Responsabilidades en REPOX</div>
-        <ul class="lst">
-          <li>Mantener la ficha del catálogo en Azure Purview: descripción, clasificación, SLA, glosario vinculado</li>
-          <li>Firmar el Data Contract de ingesta que autoriza la copia hacia REPOX</li>
-          <li>Decidir qué campos no deben replicarse (PII innecesario para analítica)</li>
-          <li>Notificar al Engineer con anticipación ante cambios en el sistema fuente</li>
-          <li>Aprobar solicitudes de acceso a su dataset desde Azure Purview</li>
-          <li>Auditar periódicamente que la copia en REPOX es fiel a la fuente</li>
-        </ul>
-        <div class="sl">Entregables propios</div>
-        <ul class="lst">
-          <li>Ficha de catálogo completa y actualizada en Azure Purview</li>
-          <li>Data Contract de ingesta firmado (schema autorizado, frecuencia, exclusiones)</li>
-          <li>Inventario de campos excluidos de la réplica (PII / no analítico)</li>
-        </ul>
-      </div>
-
-      <div class="card" id="n-steward">
-        <div class="badge" style="background:var(--steward);color:#fff"><span class="dot" style="background:#fff"></span>Data Steward</div>
-        <div class="desc">Opera la gobernanza diaria dentro de Azure Purview. Mantiene el glosario, define reglas DQ para los pipelines de ingesta, documenta el linaje de negocio y coordina incidentes de calidad.</div>
-        <div class="sl">Responsabilidades en REPOX</div>
-        <ul class="lst">
-          <li>Mantener el glosario de negocio en Azure Purview (términos aprobados por el Owner)</li>
-          <li>Definir y documentar reglas DQ por dataset (para que el Engineer las implemente)</li>
-          <li>Coordinar resolución de incidentes de calidad reportados por Consumers</li>
-          <li>Documentar linaje de negocio: fuente SDM → Bronze → Gold → tablero Power BI</li>
-          <li>Gestionar Data Contracts entre Owner y Consumers de REPOX</li>
-          <li>Validar fichas de catálogo: completitud, corrección y vigencia</li>
-        </ul>
-        <div class="sl">Entregables propios</div>
-        <ul class="lst">
-          <li>Glosario actualizado y vinculado a campos de datasets en Purview</li>
-          <li>Especificación DQ por pipeline de ingesta</li>
-          <li>Registro de incidentes: causa, impacto y resolución</li>
-        </ul>
-      </div>
-
-      <div class="card" id="n-eng">
-        <div class="badge" style="background:var(--eng);color:#0a0d12"><span class="dot" style="background:#0a0d12"></span>Data Engineer</div>
-        <div class="desc">Construye y opera REPOX técnicamente. Replica los datos desde los sistemas fuente de la SDM, aplica reglas DQ en cada capa, configura seguridad en Azure y publica linaje técnico en Purview.</div>
-        <div class="sl">Responsabilidades en REPOX</div>
-        <ul class="lst">
-          <li>Implementar pipelines de ingesta: sistemas fuente SDM → Bronze (ADLS Gen2)</li>
-          <li>Transformar Bronze → Silver → Gold con tests DQ según specs del Steward</li>
-          <li>Configurar y mantener Synapse Analytics, Databricks y ADF en REPOX</li>
-          <li>Publicar linaje técnico en Azure Purview (conector nativo / OpenLineage)</li>
-          <li>Aplicar controles de seguridad: IAM (Azure AD), RLS/CLS, enmascaramiento dinámico</li>
-          <li>Configurar observabilidad en Azure Monitor: freshness, volume, schema drift, DQ Score</li>
-        </ul>
-        <div class="sl">Entregables propios</div>
-        <ul class="lst">
-          <li>Pipelines de ingesta en código versionado (ADF / Databricks)</li>
-          <li>DQ Score publicado en catálogo por dataset (con tendencia histórica)</li>
-          <li>Linaje técnico en Azure Purview</li>
-          <li>Runbook de incidentes y reprocesamiento desde Bronze</li>
+          <li>Aprueba políticas de ingesta, acceso y retención → REPOX las ejecuta vía IAM, ADF y Azure Purview</li>
+          <li>Define qué dominios son fuentes oficiales → REPOX los certifica en el catálogo</li>
+          <li>Aprueba Data Contracts cross-dominio o con PII → REPOX bloquea ingestas sin contrato firmado</li>
+          <li>Audita semestralmente completitud del catálogo → REPOX expone métricas en Azure Purview</li>
+          <li>Resuelve conflictos de definición → REPOX implementa la resolución en el glosario</li>
         </ul>
       </div>
 
       <div class="card" id="n-ciso">
-        <div class="badge" style="background:var(--ciso);color:#0a0d12"><span class="dot" style="background:#0a0d12"></span>CISO / DPO</div>
-        <div class="desc">Define los controles de seguridad y privacidad que REPOX debe implementar. Su aprobación es prerrequisito para replicar PII hacia el lakehouse. En la SDM, esto incluye datos de usuarios de transporte sujetos a Ley 1581.</div>
-        <div class="sl">Responsabilidades en REPOX</div>
+        <div class="badge" style="background:#fb8c00;color:#060a0f"><span class="dot" style="background:#060a0f"></span>CISO / DPO</div>
+        <div class="desc">Define los controles de seguridad y privacidad que <strong>REPOX ejecuta técnicamente</strong>. Cada control aprobado por el CISO/DPO se implementa como una regla activa en la plataforma: enmascaramiento, auditoría, retención y acceso. Datos de usuarios SDM sujetos a Ley 1581.</div>
+        <div class="sl">Controles de gobernanza ejecutados por REPOX</div>
         <ul class="lst">
-          <li>Aprobar política de ingesta de PII hacia REPOX (qué puede copiarse y bajo qué controles)</li>
-          <li>Definir enmascaramiento dinámico en Synapse / Databricks para datos sensibles</li>
-          <li>Supervisar log de auditoría de accesos a datasets Confidencial/Sensible (Azure Monitor)</li>
-          <li>Validar cumplimiento de Ley 1581 para datos de usuarios SDM almacenados en REPOX</li>
-          <li>Aprobar qué datos pueden exponerse a través de Power BI / APIs externas</li>
+          <li><strong>Control de PII:</strong> REPOX bloquea la ingesta de datos sensibles sin aprobación previa del CISO/DPO</li>
+          <li><strong>Enmascaramiento dinámico:</strong> Synapse/Databricks aplican la política aprobada — el Consumer nunca ve el dato crudo si no tiene autorización</li>
+          <li><strong>Auditoría continua:</strong> Azure Monitor registra y retiene cada acceso a datos Confidencial/Sensible</li>
+          <li><strong>Cumplimiento Ley 1581:</strong> REPOX anonimiza PII de usuarios SDM en Silver y aplica retención automática</li>
+          <li><strong>Control de exposición:</strong> REPOX impide publicar en Power BI / APIs datos que el CISO/DPO no ha aprobado</li>
+        </ul>
+      </div>
+
+      <div class="card" id="n-owner">
+        <div class="badge" style="background:#f4511e;color:#fff"><span class="dot" style="background:#fff"></span>Data Owner</div>
+        <div class="desc">La dependencia que administra el sistema fuente. <strong>REPOX materializa la responsabilidad del Data Owner</strong> obligando técnicamente a que ningún dato ingrese a la plataforma sin su autorización explícita, y que ningún campo clasificado como PII sea accesible sin su aprobación en Purview.</div>
+        <div class="sl">Ejemplos de Data Owners en la SDM</div>
+        <ul class="lst">
+          <li><strong>OFV — Oficina de Seguridad Vial:</strong> datos de siniestros viales</li>
+          <li><strong>DIM — Dirección de Inteligencia para la Movilidad:</strong> sistema de bicicletas compartidas, estudios y monitoreo de movilidad</li>
+          <li><strong>SCC — Subsecretaría de Servicios a la Ciudadanía:</strong> comparendos, Registro Distrital Automotor (RDA)</li>
+        </ul>
+        <div class="sl">Cómo REPOX ejecuta los controles del Data Owner</div>
+        <ul class="lst">
+          <li>Bloquea la ingesta si no existe Data Contract firmado por el Owner</li>
+          <li>Expone el workflow de aprobación de accesos en Azure Purview — el Owner aprueba o rechaza cada solicitud</li>
+          <li>Notifica automáticamente al Owner ante schema drift o falla de ingesta</li>
+          <li>Registra en el catálogo quién accedió a sus datasets y cuándo</li>
+        </ul>
+        <div class="sl">Obligaciones no delegables del Owner</div>
+        <ul class="lst">
+          <li>Mantener ficha del catálogo en Azure Purview: descripción, clasificación, SLA, glosario</li>
+          <li>Firmar el Data Contract de ingesta (schema, frecuencia, campos excluidos)</li>
+          <li>Notificar al Engineer ante cambios en el sistema fuente (mín. 15 días hábiles)</li>
+        </ul>
+      </div>
+
+      <div class="card" id="n-steward">
+        <div class="badge" style="background:#9c27b0;color:#fff"><span class="dot" style="background:#fff"></span>Data Steward</div>
+        <div class="desc">Opera la gobernanza diaria dentro de Azure Purview. <strong>REPOX expone los instrumentos que el Steward opera:</strong> el catálogo donde mantiene el glosario, las reglas DQ que los pipelines ejecutan, y el linaje que hace trazable cada dato desde su fuente hasta el tablero Power BI.</div>
+        <div class="sl">Controles de gobernanza que el Steward activa en REPOX</div>
+        <ul class="lst">
+          <li><strong>Glosario en Purview:</strong> REPOX vincula cada campo del catálogo al término oficial — garantiza vocabulario único en toda la entidad</li>
+          <li><strong>Reglas DQ:</strong> el Steward las especifica → REPOX las ejecuta en cada corrida de pipeline y publica el DQ Score en el catálogo</li>
+          <li><strong>Linaje de negocio:</strong> REPOX lo construye automáticamente; el Steward valida que refleja la realidad del proceso</li>
+          <li><strong>Data Contracts:</strong> REPOX bloquea el acceso a datos sin contrato registrado en Purview</li>
+          <li><strong>Gestión de incidentes:</strong> REPOX detecta y alerta; el Steward coordina la resolución y documenta la causa raíz</li>
+        </ul>
+      </div>
+
+      <div class="card" id="n-eng">
+        <div class="badge" style="background:#00bcd4;color:#060a0f"><span class="dot" style="background:#060a0f"></span>Data Engineer</div>
+        <div class="desc"><strong>Construye y opera la plataforma que ejecuta la gobernanza.</strong> El Engineer no solo mueve datos — implementa técnicamente cada control definido por el Council, el CISO/DPO y el Steward: acceso, calidad, linaje, seguridad y observabilidad.</div>
+        <div class="sl">Controles de gobernanza implementados por el Engineer en REPOX</div>
+        <ul class="lst">
+          <li><strong>Control de ingesta:</strong> ADF/Databricks bloquean la carga si no existe Data Contract aprobado</li>
+          <li><strong>Calidad del dato:</strong> tests DQ en cada pipeline; resultado publicado como DQ Score en el catálogo</li>
+          <li><strong>Seguridad y acceso:</strong> IAM (Azure AD), RLS/CLS y enmascaramiento dinámico aplicados según política del CISO/DPO</li>
+          <li><strong>Linaje técnico:</strong> cada transformación Bronze→Silver→Gold registrada en Purview vía OpenLineage</li>
+          <li><strong>Observabilidad:</strong> Azure Monitor detecta freshness, volume anomalies y schema drift — alertas al Owner</li>
+        </ul>
+        <div class="sl">Entregables técnicos</div>
+        <ul class="lst">
+          <li>Pipelines de ingesta en código versionado (ADF / Databricks)</li>
+          <li>DQ Score por dataset publicado en el catálogo de Purview</li>
+          <li>Runbook de incidentes y reprocesamiento desde Bronze</li>
         </ul>
       </div>
 
       <div class="card" id="n-consumer">
-        <div class="badge" style="background:var(--consumer);color:#0a0d12"><span class="dot" style="background:#0a0d12"></span>Data Consumer</div>
-        <div class="desc">Cualquier usuario de la SDM que consulta datos con propósito analítico. REPOX es el único punto oficial de consulta — no se accede a los sistemas fuente directamente para analítica.</div>
-        <div class="sl">Cómo usa REPOX</div>
+        <div class="badge" style="background:#43a047;color:#060a0f"><span class="dot" style="background:#060a0f"></span>Data Consumer</div>
+        <div class="desc">Analistas, científicos de datos y gestores de la SDM. <strong>El Consumer solo puede acceder a lo que la gobernanza ha certificado</strong> — REPOX aplica automáticamente los controles de acceso, calidad y privacidad antes de exponer cualquier dato.</div>
+        <div class="sl">Cómo REPOX controla el acceso del Consumer</div>
         <ul class="lst">
-          <li><strong>Power BI:</strong> tableros conectados a Gold / modelo semántico (datasets Certified)</li>
-          <li><strong>Synapse Analytics:</strong> consultas SQL ad-hoc sobre tablas Gold (con permiso de Owner)</li>
-          <li><strong>Databricks Notebooks:</strong> análisis avanzado y ML (acceso controlado)</li>
-          <li><strong>Azure Purview:</strong> descubrimiento de datasets y solicitud de acceso</li>
+          <li><strong>Solo datos certificados:</strong> Power BI y Synapse exponen únicamente capa Gold — Bronze y Silver inaccesibles sin aprobación explícita</li>
+          <li><strong>Acceso controlado por rol:</strong> Azure AD verifica permisos antes de cada consulta — sin autorización del Data Owner, no hay acceso</li>
+          <li><strong>PII protegido:</strong> enmascaramiento dinámico activo — el Consumer sin autorización CISO/DPO nunca ve el dato sensible real</li>
+          <li><strong>Trazabilidad:</strong> cada consulta queda registrada en el log de auditoría de Azure Monitor</li>
         </ul>
-        <div class="sl">Responsabilidades</div>
+        <div class="sl">Responsabilidades del Consumer</div>
         <ul class="lst">
-          <li>Usar solo la capa Gold / semántica (Bronze y Silver son uso restringido)</li>
-          <li>Reportar incidentes de calidad cuando detecta anomalías en consumo</li>
-          <li>Solicitar nuevos datasets por canal oficial, no accediendo a fuentes directas</li>
-          <li>Respetar la clasificación y política de uso aceptable del dataset</li>
+          <li>Solicitar acceso a nuevos datasets a través del workflow de Azure Purview</li>
+          <li>Reportar incidentes de calidad al Steward cuando detecta anomalías</li>
+          <li>No acceder directamente a los sistemas fuente para análisis</li>
         </ul>
       </div>
 
       <div class="card" id="n-src">
-        <div class="badge" style="background:var(--src);color:#fff"><span class="dot" style="background:#fff"></span>Sistemas Fuente SDM</div>
-        <div class="desc">Sistemas operacionales de la SDM de los cuales REPOX obtiene una copia para analítica. La fuente oficial del dato sigue siendo el sistema operacional — REPOX opera siempre sobre réplicas.</div>
-        <div class="sl">Ejemplos de fuentes en SDM</div>
+        <div class="badge" style="background:#37474f;color:#fff"><span class="dot" style="background:#fff"></span>Sistemas Fuente SDM</div>
+        <div class="desc">Sistemas operacionales administrados por las <strong>dependencias de la SDM que actúan como Data Owners</strong>. Cada dependencia es responsable de su sistema en origen. REPOX obtiene una copia analítica — el sistema operacional sigue siendo la fuente oficial del dato.</div>
+        <div class="sl">Sistemas fuente por Data Owner (dependencia SDM)</div>
         <ul class="lst">
-          <li>Sistema AFC (validaciones de tarjeta, torniquetes, recaudo)</li>
-          <li>GPS y telemetría de flota (posición, velocidad, eventos)</li>
-          <li>Sistema de operación (servicios programados, incidentes)</li>
-          <li>CRM / Atención al ciudadano</li>
-          <li>Sistemas financieros y de contratación</li>
-          <li>Datos GTFS (rutas, paradas, frecuencias)</li>
+          <li><strong>OFV — Oficina de Seguridad Vial:</strong> sistema de siniestros viales — registros de accidentes, georeferenciación, actores involucrados</li>
+          <li><strong>DIM — Dirección de Inteligencia para la Movilidad:</strong> sistema de bicicletas compartidas (trips, disponibilidad, estaciones), estudios de movilidad, monitoreo de indicadores</li>
+          <li><strong>SCC — Subsecretaría de Servicios a la Ciudadanía:</strong> sistema de comparendos (infracciones de tránsito), Registro Distrital Automotor — RDA (vehículos, propietarios, trámites)</li>
         </ul>
         <div class="sl">Principio de réplica</div>
         <ul class="lst">
-          <li>REPOX obtiene una <strong>copia</strong> — nunca escribe en los sistemas fuente</li>
-          <li>Ante discrepancia, el sistema fuente es la fuente de verdad (source of record)</li>
-          <li>Toda ingesta requiere Data Contract firmado por el Data Owner del sistema</li>
+          <li>REPOX obtiene una <strong>copia analítica</strong> — nunca escribe en los sistemas fuente</li>
+          <li>Ante discrepancia, el sistema fuente (administrado por el Data Owner) es la fuente de verdad</li>
+          <li>Toda ingesta requiere Data Contract firmado por la dependencia Data Owner del sistema</li>
         </ul>
       </div>
 
       <div class="card" id="n-repox">
-        <div class="badge" style="background:var(--repox);color:#fff"><span class="dot" style="background:#fff"></span>REPOX</div>
-        <div class="desc">Repositorio Unificado y Analítica de la SDM. Lakehouse corporativo sobre Azure que centraliza las copias analíticas de todos los sistemas de la entidad. Único punto oficial de consulta para propósitos analíticos.</div>
-        <div class="sl">Componentes Azure</div>
+        <div class="badge" style="background:#0078d4;color:#fff"><span class="dot" style="background:#fff"></span>REPOX</div>
+        <div class="desc"><strong>REPOX es la plataforma que materializa y ejecuta los controles de gobernanza de datos de la SDM.</strong> No es solo un repositorio analítico — es el punto donde las políticas del Council, las reglas del CISO/DPO, las responsabilidades del Data Owner y los estándares del Steward se vuelven controles técnicos activos y auditables.</div>
+        <div class="sl">Controles de gobernanza que REPOX ejecuta activamente</div>
+        <ul class="lst">
+          <li><strong>Control de ingesta:</strong> ningún dato entra sin Data Contract firmado por el Data Owner</li>
+          <li><strong>Control de calidad:</strong> DQ Score calculado en cada pipeline y publicado en el catálogo</li>
+          <li><strong>Control de acceso:</strong> IAM + RLS/CLS + enmascaramiento dinámico aplicados por rol y dataset</li>
+          <li><strong>Control de privacidad:</strong> PII anonimizado en Silver, auditable en Azure Monitor</li>
+          <li><strong>Control de linaje:</strong> trazabilidad completa fuente → Bronze → Gold → tablero Power BI</li>
+          <li><strong>Control de catálogo:</strong> Azure Purview bloquea acceso a datos sin ficha completa</li>
+        </ul>
+        <div class="sl">Componentes Azure que ejecutan los controles</div>
         <div class="tech-row">
           <span class="tch">ADLS Gen2</span><span class="tch">Azure Purview</span>
           <span class="tch">Synapse Analytics</span><span class="tch">Databricks</span>
           <span class="tch">Power BI</span><span class="tch">Azure Data Factory</span>
           <span class="tch">Azure Monitor</span><span class="tch">Azure Active Directory</span>
         </div>
-        <div class="sl">Arquitectura de capas (Lakehouse)</div>
+        <div class="sl">Capas de la plataforma</div>
         <ul class="lst">
-          <li><strong style="color:var(--src)">Bronze (ADLS Gen2):</strong> copia raw de fuentes — inmutable, particionada por fecha de ingesta</li>
-          <li><strong style="color:var(--eng)">Silver (ADLS Gen2 + Databricks):</strong> dato limpio, estandarizado, DQ aplicado, linaje técnico</li>
-          <li><strong style="color:var(--repox)">Gold (Synapse / Databricks):</strong> KPIs y tablas certificadas para consumo — accesibles desde Power BI</li>
-          <li><strong style="color:var(--ciso)">Catálogo (Azure Purview):</strong> inventario, glosario, linaje, clasificación PII y Data Contracts</li>
-        </ul>
-        <div class="sl">Principios de gobernanza en REPOX</div>
-        <ul class="lst">
-          <li>REPOX es punto de consulta, no sistema de registro (source of record)</li>
-          <li>Toda ingesta requiere autorización del Data Owner (Data Contract firmado)</li>
-          <li>El catálogo en Azure Purview es responsabilidad del Data Owner, no del Engineer</li>
-          <li>Consumers acceden solo a Gold / capa semántica (Power BI Certified datasets)</li>
-          <li>PII enmascarado dinámicamente para roles sin autorización CISO</li>
+          <li><strong style="color:#37474f">Bronze:</strong> copia raw inmutable — fuente de verdad para reprocesamiento</li>
+          <li><strong style="color:#00838f">Silver:</strong> dato limpio, DQ aplicado, PII anonimizado, linaje técnico</li>
+          <li><strong style="color:#0078d4">Gold:</strong> KPIs y datasets certificados — única capa accesible al Consumer</li>
+          <li><strong style="color:#fb8c00">Catálogo (Purview):</strong> inventario, glosario, linaje, Data Contracts y clasificación PII</li>
         </ul>
       </div>
 
       <!-- ══ INTERACCIONES ══ -->
-
       <div class="card" id="e-src-repox">
         <div class="int-hd">
-          <span class="chip" style="background:var(--src);color:#fff">Fuentes SDM</span>
-          <span class="arr-ic">→</span>
-          <span class="chip" style="background:var(--repox);color:#fff">REPOX · Bronze</span>
+          <span class="chip" style="background:#37474f;color:#fff">Fuentes SDM</span>
+          <span class="arric">→</span>
+          <span class="chip" style="background:#0078d4;color:#fff">REPOX · Bronze</span>
         </div>
         <span class="itype tx">Ingesta / Réplica analítica</span>
-        <p class="int-desc">El Data Engineer extrae una copia desde los sistemas fuente de la SDM hacia la capa Bronze de REPOX (ADLS Gen2). La fuente oficial permanece intacta — REPOX opera siempre sobre réplicas.</p>
+        <p class="int-desc">El Data Engineer extrae una copia desde los sistemas fuente hacia Bronze (ADLS Gen2). La fuente oficial permanece intacta — REPOX opera siempre sobre réplicas.</p>
         <div class="db">
           <div class="dbt">Flujo de ingesta <span class="dtag tx">entregable</span></div>
           <div class="dbb"><ul>
             <li>Extracción incremental (delta) o full según naturaleza del sistema fuente</li>
-            <li>Copia raw depositada en Bronze, particionada por fecha de ingesta</li>
-            <li>Schema registrado automáticamente en Azure Purview al momento de la ingesta</li>
-            <li>Linaje técnico generado: Fuente → Bronze (conector Purview / OpenLineage)</li>
+            <li>Copia raw en Bronze, particionada por fecha de ingesta</li>
+            <li>Schema registrado automáticamente en Azure Purview</li>
+            <li>Linaje: Fuente → Bronze (conector Purview / OpenLineage)</li>
           </ul></div>
         </div>
         <div class="db">
           <div class="dbt">Precondiciones <span class="dtag tp">política</span></div>
           <div class="dbb"><ul>
-            <li>Data Contract de ingesta firmado por el Data Owner del sistema fuente</li>
-            <li>Clasificación del dataset aprobada por CISO/DPO antes de la primera ingesta</li>
-            <li>Ficha en Azure Purview creada y asignada al Data Owner correspondiente</li>
+            <li>Data Contract de ingesta firmado por el Data Owner</li>
+            <li>Clasificación del dataset aprobada por CISO/DPO</li>
+            <li>Ficha en Azure Purview creada y asignada al Data Owner</li>
           </ul></div>
         </div>
       </div>
 
       <div class="card" id="e-owner-purview">
         <div class="int-hd">
-          <span class="chip" style="background:var(--owner);color:#fff">Data Owner</span>
-          <span class="arr-ic">→</span>
-          <span class="chip" style="background:var(--repox);color:#fff">Azure Purview</span>
+          <span class="chip" style="background:#f4511e;color:#fff">Data Owner</span>
+          <span class="arric">→</span>
+          <span class="chip" style="background:#0078d4;color:#fff">Azure Purview</span>
         </div>
         <span class="itype tp">Responsabilidad de catálogo</span>
-        <p class="int-desc">El Data Owner es el responsable directo del catálogo en Azure Purview. No puede delegar esta responsabilidad al Engineer — el Owner es quien conoce el negocio y debe garantizar que la descripción, clasificación y SLAs del dataset son correctos y están actualizados.</p>
+        <p class="int-desc">La <strong>dependencia que administra el sistema fuente</strong> es el Data Owner y es directamente responsable de mantener la ficha de sus datasets en Azure Purview. No puede delegar esto al Engineer — la dependencia conoce el negocio y garantiza que la descripción, clasificación y SLAs son correctos y vigentes.</p>
         <div class="db">
-          <div class="dbt">Owner → Purview (catálogo) <span class="dtag tp">mantenimiento</span></div>
+          <div class="dbt">Ejemplos concretos en SDM <span class="dtag tp">Data Owners</span></div>
           <div class="dbb"><ul>
-            <li>Actualizar descripción de negocio cuando cambia el proceso o la fuente</li>
-            <li>Clasificar campos nuevos detectados por el scanner automático de Purview</li>
-            <li>Mantener SLAs documentados (frescura, completitud, disponibilidad)</li>
-            <li>Vincular términos del glosario de negocio a los campos del dataset</li>
-            <li>Aprobar o rechazar solicitudes de acceso desde el workflow de Purview</li>
+            <li><strong>OFV</strong> mantiene la ficha del dataset de Siniestros en Purview</li>
+            <li><strong>DIM</strong> mantiene las fichas de Bicicletas Compartidas y Estudios de Movilidad</li>
+            <li><strong>SCC</strong> mantiene las fichas de Comparendos y Registro Distrital Automotor</li>
           </ul></div>
         </div>
         <div class="db">
-          <div class="dbt">Frecuencia requerida <span class="dtag tc">política</span></div>
+          <div class="dbt">Owner → Purview <span class="dtag tp">mantenimiento</span></div>
           <div class="dbb"><ul>
-            <li>Revisión mensual de la ficha del catálogo (checklist estándar)</li>
-            <li>Actualización inmediata ante cualquier cambio en el sistema fuente</li>
-            <li>Auditoría semestral del Council sobre completitud del catálogo por dominio</li>
+            <li>Actualizar descripción de negocio cuando cambia el proceso o la fuente</li>
+            <li>Clasificar campos nuevos detectados por el scanner de Purview</li>
+            <li>Mantener SLAs documentados (frescura, completitud, disponibilidad)</li>
+            <li>Vincular términos del glosario a los campos del dataset</li>
+            <li>Aprobar solicitudes de acceso desde el workflow de Purview</li>
+          </ul></div>
+        </div>
+        <div class="db">
+          <div class="dbt">Frecuencia <span class="dtag tc">política</span></div>
+          <div class="dbb"><ul>
+            <li>Revisión mensual de la ficha del catálogo</li>
+            <li>Actualización inmediata ante cambios en el sistema fuente</li>
+            <li>Auditoría semestral del Council sobre completitud</li>
           </ul></div>
         </div>
       </div>
 
       <div class="card" id="e-owner-eng">
         <div class="int-hd">
-          <span class="chip" style="background:var(--owner);color:#fff">Data Owner</span>
-          <span class="arr-ic">⟷</span>
-          <span class="chip" style="background:var(--eng);color:#0a0d12">Data Engineer</span>
+          <span class="chip" style="background:#f4511e;color:#fff">Data Owner</span>
+          <span class="arric">⟷</span>
+          <span class="chip" style="background:#00bcd4;color:#060a0f">Data Engineer</span>
         </div>
         <span class="itype tp">Autorización de ingesta</span>
-        <p class="int-desc">El Owner autoriza la réplica de datos hacia REPOX. El Engineer no puede iniciar una ingesta sin el Data Contract firmado. Ante cambios en el sistema fuente, el Owner debe notificar al Engineer con anticipación para evitar roturas del pipeline.</p>
+        <p class="int-desc">La dependencia que administra el sistema fuente (Data Owner) autoriza la réplica hacia REPOX. El Engineer no puede iniciar una ingesta sin el Data Contract firmado por esa dependencia. Ante cambios en el sistema fuente, el Owner notifica con anticipación para evitar roturas del pipeline.</p>
+        <div class="db">
+          <div class="dbt">Ejemplos en SDM <span class="dtag tp">quién firma</span></div>
+          <div class="dbb"><ul>
+            <li><strong>OFV</strong> firma el contrato de ingesta del sistema de Siniestros</li>
+            <li><strong>DIM</strong> firma el contrato de ingesta de Bicicletas Compartidas y Estudios</li>
+            <li><strong>SCC</strong> firma el contrato de ingesta de Comparendos y RDA</li>
+          </ul></div>
+        </div>
         <div class="db">
           <div class="dbt">Owner → Engineer <span class="dtag tp">autorización</span></div>
           <div class="dbb"><ul>
-            <li>Data Contract de ingesta firmado: schema autorizado, frecuencia, campos excluidos (PII)</li>
-            <li>Notificación anticipada de cambios en sistema fuente (mínimo 15 días hábiles)</li>
-            <li>Aprobación de cambios breaking en el pipeline antes de implementarlos</li>
-            <li>Decisión sobre qué campos PII no deben replicarse hacia REPOX</li>
+            <li>Data Contract firmado: schema autorizado, frecuencia, campos excluidos (PII)</li>
+            <li>Notificación anticipada de cambios en sistema fuente (mín. 15 días hábiles)</li>
+            <li>Aprobación de cambios breaking en el pipeline</li>
+            <li>Decisión sobre qué campos PII no se replican</li>
           </ul></div>
         </div>
         <div class="db">
           <div class="dbt">Engineer → Owner <span class="dtag te">entregable</span></div>
           <div class="dbb"><ul>
-            <li>Informe de DQ Score del dataset en REPOX (mensual o ante incidente)</li>
+            <li>DQ Score del dataset en REPOX (mensual o ante incidente)</li>
             <li>Alerta de schema drift detectado en el sistema fuente</li>
-            <li>Notificación de falla de ingesta con causa e impacto estimado</li>
-            <li>Linaje técnico disponible en Purview para auditoría del Owner</li>
+            <li>Notificación de falla de ingesta con causa e impacto</li>
+            <li>Linaje técnico disponible en Purview para auditoría</li>
           </ul></div>
         </div>
       </div>
 
       <div class="card" id="e-eng-repox">
         <div class="int-hd">
-          <span class="chip" style="background:var(--eng);color:#0a0d12">Data Engineer</span>
-          <span class="arr-ic">→</span>
-          <span class="chip" style="background:var(--repox);color:#fff">REPOX</span>
+          <span class="chip" style="background:#00bcd4;color:#060a0f">Data Engineer</span>
+          <span class="arric">→</span>
+          <span class="chip" style="background:#0078d4;color:#fff">REPOX</span>
         </div>
         <span class="itype te">Construcción y operación técnica</span>
-        <p class="int-desc">El Engineer construye y mantiene toda la infraestructura técnica de REPOX. Implementa las transformaciones Bronze→Gold, configura seguridad en Azure y publica el linaje técnico en Purview.</p>
+        <p class="int-desc">El Engineer construye y mantiene toda la infraestructura técnica de REPOX: pipelines Bronze→Gold, seguridad Azure y linaje técnico en Purview.</p>
         <div class="db">
           <div class="dbt">Engineer → REPOX <span class="dtag te">entregables técnicos</span></div>
           <div class="dbb"><ul>
-            <li>Pipelines ADF / Databricks: ingesta incremental desde sistemas fuente SDM</li>
-            <li>Notebooks Databricks / scripts Synapse: transformaciones Bronze → Silver → Gold</li>
-            <li>Tests DQ integrados en cada transformación (dbt / Great Expectations)</li>
-            <li>Configuración IAM: grupos Azure AD por capa y dataset (mínimo privilegio)</li>
-            <li>Enmascaramiento dinámico en Synapse/Databricks para campos PII</li>
+            <li>Pipelines ADF / Databricks: ingesta incremental desde fuentes SDM</li>
+            <li>Transformaciones Bronze → Silver → Gold con tests DQ integrados</li>
+            <li>IAM: grupos Azure AD por capa y dataset (mínimo privilegio)</li>
+            <li>Enmascaramiento dinámico en Synapse/Databricks para PII</li>
             <li>Linaje técnico publicado en Azure Purview</li>
-            <li>Dashboard de observabilidad en Azure Monitor (freshness, volume, DQ Score)</li>
+            <li>Observabilidad en Azure Monitor (freshness, volume, DQ Score)</li>
           </ul></div>
         </div>
       </div>
 
       <div class="card" id="e-steward-repox">
         <div class="int-hd">
-          <span class="chip" style="background:var(--steward);color:#fff">Data Steward</span>
-          <span class="arr-ic">→</span>
-          <span class="chip" style="background:var(--repox);color:#fff">REPOX · Purview</span>
+          <span class="chip" style="background:#9c27b0;color:#fff">Data Steward</span>
+          <span class="arric">→</span>
+          <span class="chip" style="background:#0078d4;color:#fff">REPOX · Purview</span>
         </div>
         <span class="itype tr">Gobernanza operativa</span>
-        <p class="int-desc">El Steward opera la gobernanza diaria dentro de Azure Purview: mantiene el glosario, valida fichas del catálogo, gestiona Data Contracts y documenta el linaje de negocio entre fuentes, capas y tableros Power BI.</p>
+        <p class="int-desc">El Steward opera la gobernanza diaria en Azure Purview: glosario, validación de fichas, Data Contracts y linaje de negocio entre fuentes, capas y tableros Power BI.</p>
         <div class="db">
           <div class="dbt">Steward → Purview <span class="dtag tr">operación diaria</span></div>
           <div class="dbb"><ul>
-            <li>Glosario de negocio: términos aprobados vinculados a campos de datasets</li>
-            <li>Validación de fichas de catálogo: completitud, corrección y vigencia</li>
-            <li>Reglas DQ documentadas en la ficha del dataset (visibles para el Consumer)</li>
-            <li>Linaje de negocio: sistema fuente → REPOX Bronze/Gold → tablero Power BI</li>
-            <li>Data Contracts registrados como metadatos del dataset en Purview</li>
+            <li>Glosario: términos aprobados vinculados a campos de datasets</li>
+            <li>Validación de fichas: completitud, corrección y vigencia</li>
+            <li>Reglas DQ documentadas en la ficha del dataset</li>
+            <li>Linaje de negocio: fuente → Bronze/Gold → tablero Power BI</li>
+            <li>Data Contracts registrados como metadatos en Purview</li>
           </ul></div>
         </div>
       </div>
 
       <div class="card" id="e-ciso-repox">
         <div class="int-hd">
-          <span class="chip" style="background:var(--ciso);color:#0a0d12">CISO / DPO</span>
-          <span class="arr-ic">→</span>
-          <span class="chip" style="background:var(--repox);color:#fff">REPOX</span>
+          <span class="chip" style="background:#fb8c00;color:#060a0f">CISO / DPO</span>
+          <span class="arric">→</span>
+          <span class="chip" style="background:#0078d4;color:#fff">REPOX</span>
         </div>
         <span class="itype tp">Control de seguridad y privacidad</span>
-        <p class="int-desc">El CISO/DPO define los controles que REPOX debe implementar técnicamente para PII y datos confidenciales. En la SDM, esto incluye datos de usuarios de transporte (tarjetas, ubicación, biométricos) sujetos a Ley 1581.</p>
+        <p class="int-desc">El CISO/DPO define los controles que REPOX implementa para PII y datos confidenciales, incluyendo datos de usuarios SDM sujetos a Ley 1581.</p>
         <div class="db">
           <div class="dbt">CISO/DPO → REPOX <span class="dtag tp">controles</span></div>
           <div class="dbb"><ul>
             <li>Política de clasificación aplicada a todos los datasets en Purview</li>
-            <li>Enmascaramiento dinámico en Synapse/Databricks para números de tarjeta, documentos, ubicación de usuario</li>
-            <li>Grupos Azure AD segregados: Bronze solo Engineers, Gold acceso general con rol lector</li>
-            <li>Log de auditoría en Azure Monitor para accesos a datos Confidencial/Sensible</li>
-            <li>PII de usuarios SDM anonimizado en Silver (Bronze preserva el raw sin modificación)</li>
-            <li>Política de retención: datos operacionales 5 años, PII anonimizado a los 2 años</li>
+            <li>Enmascaramiento dinámico para números de tarjeta, documentos, ubicación</li>
+            <li>Grupos Azure AD: Bronze solo Engineers, Gold acceso general con rol lector</li>
+            <li>Log de auditoría en Azure Monitor para datos Confidencial/Sensible</li>
+            <li>PII anonimizado en Silver; Bronze preserva el raw sin modificación</li>
+            <li>Retención: datos operacionales 5 años, PII anonimizado a los 2 años</li>
           </ul></div>
         </div>
       </div>
 
       <div class="card" id="e-repox-consumer">
         <div class="int-hd">
-          <span class="chip" style="background:var(--repox);color:#fff">REPOX</span>
-          <span class="arr-ic">→</span>
-          <span class="chip" style="background:var(--consumer);color:#0a0d12">Data Consumer</span>
+          <span class="chip" style="background:#0078d4;color:#fff">REPOX</span>
+          <span class="arric">→</span>
+          <span class="chip" style="background:#43a047;color:#060a0f">Data Consumer</span>
         </div>
         <span class="itype tc">Consulta y explotación analítica</span>
-        <p class="int-desc">REPOX es el único punto de consulta autorizado para analítica. Los Consumers acceden a través de los servicios Azure integrados — nunca directamente a los sistemas fuente con propósito analítico.</p>
+        <p class="int-desc">REPOX es el único punto de consulta autorizado. Los Consumers acceden a través de los servicios Azure integrados — nunca directamente a los sistemas fuente.</p>
         <div class="db">
           <div class="dbt">Canales de acceso <span class="dtag tx">plataforma Azure</span></div>
           <div class="dbb"><ul>
-            <li><strong>Power BI:</strong> tableros certificados conectados a Gold / modelo semántico (acceso general SDM)</li>
-            <li><strong>Synapse Analytics:</strong> SQL ad-hoc sobre Gold y Silver (requiere aprobación del Data Owner)</li>
-            <li><strong>Databricks Notebooks:</strong> análisis avanzado y ML (acceso restringido y controlado)</li>
-            <li><strong>Azure Purview:</strong> descubrimiento de datasets disponibles, fichas, linaje y solicitud de acceso</li>
+            <li><strong>Power BI:</strong> tableros certificados Gold / semántica (acceso general SDM)</li>
+            <li><strong>Synapse Analytics:</strong> SQL ad-hoc sobre Gold (aprobación del Data Owner)</li>
+            <li><strong>Databricks:</strong> análisis avanzado y ML (acceso restringido)</li>
+            <li><strong>Azure Purview:</strong> descubrimiento, fichas, linaje y solicitud de acceso</li>
           </ul></div>
         </div>
         <div class="db">
           <div class="dbt">Reglas de acceso <span class="dtag tp">política</span></div>
           <div class="dbb"><ul>
-            <li>Power BI: todos los usuarios SDM con rol lector acceden a Gold Certified sin trámite adicional</li>
-            <li>Synapse / Databricks: solicitud de acceso aprobada por el Data Owner en Purview</li>
-            <li>Bronze y Silver: uso restringido a Data Engineers y Scientists con aprobación explícita</li>
+            <li>Power BI: todos los usuarios SDM con rol lector (sin trámite adicional)</li>
+            <li>Synapse / Databricks: solicitud aprobada por Data Owner en Purview</li>
+            <li>Bronze y Silver: solo Data Engineers / Scientists con aprobación explícita</li>
             <li>PII enmascarado automáticamente para roles sin autorización CISO</li>
+          </ul></div>
+        </div>
+      </div>
+
+      <div class="card" id="e-council-repox">
+        <div class="int-hd">
+          <span class="chip" style="background:#4a5acd;color:#fff">Gov. Council</span>
+          <span class="arric">→</span>
+          <span class="chip" style="background:#0078d4;color:#fff">REPOX</span>
+        </div>
+        <span class="itype tp">Supervisión estratégica</span>
+        <p class="int-desc">El Council supervisa que REPOX cumple los estándares de gobernanza. Revisa completitud del catálogo, DQ Score por dominio y métricas de adopción.</p>
+        <div class="db">
+          <div class="dbt">Council → REPOX <span class="dtag tp">supervisión</span></div>
+          <div class="dbb"><ul>
+            <li>Auditoría semestral de completitud del catálogo en Purview</li>
+            <li>Revisión de KPIs: % datasets certificados, DQ Score promedio, MTTR</li>
+            <li>Aprobación de nuevas fuentes que se incorporan a REPOX</li>
+            <li>Validación de Data Contracts cross-dominio vigentes</li>
+          </ul></div>
+        </div>
+      </div>
+
+      <div class="card" id="e-cdo-council">
+        <div class="int-hd">
+          <span class="chip" style="background:#e91e8c;color:#fff">CDO</span>
+          <span class="arric">→</span>
+          <span class="chip" style="background:#4a5acd;color:#fff">Gov. Council</span>
+        </div>
+        <span class="itype tp">Mandato estratégico</span>
+        <p class="int-desc">El CDO otorga el mandato y presupuesto al Council. El Council retorna métricas de gobernanza y escala las decisiones que superan su ámbito.</p>
+        <div class="db">
+          <div class="dbt">CDO → Council <span class="dtag tp">política</span></div>
+          <div class="dbb"><ul>
+            <li>Visión y principios de gobernanza aprobados</li>
+            <li>Prioridades del roadmap de madurez de datos</li>
+            <li>Presupuesto para herramientas y roles dedicados en REPOX</li>
+          </ul></div>
+        </div>
+        <div class="db">
+          <div class="dbt">Council → CDO <span class="dtag te">entregable</span></div>
+          <div class="dbb"><ul>
+            <li>Dashboard de KPIs de gobernanza para reporte ejecutivo</li>
+            <li>Actas de decisiones y excepciones aprobadas</li>
+            <li>Diagnóstico de madurez actualizado (trimestral)</li>
           </ul></div>
         </div>
       </div>
@@ -569,73 +603,84 @@ body {
 
 <script>
 const NS = 'http://www.w3.org/2000/svg';
+const svgEl = document.getElementById('svg');
 
-/* ── NODE DEFINITIONS ──────────────────────────────────────── */
-// Layout pensado en dos franjas horizontales:
-//   Franja 1 (y~65):  CDO · Council · CISO  (gobernanza estratégica)
-//   Franja 2 (y~185): Owner · Steward · Engineer  (gobernanza operativa)
-//   Centro  (y~370):  REPOX  (plataforma)
-//   Inferior-izq (y~480): Fuentes
-//   Derecha (y~350):  Consumer
+/*
+  ViewBox: 800 × 580
+  Margin: 10px all sides
+
+  LAYOUT (node centres, radii):
+  ┌─────────────────────────────────────────────────────┐
+  │  CDO(80,65)   Council(310,65)          CISO(700,65) │  r=32
+  │                                                     │
+  │  Owner(75,210) Steward(285,210) Eng(570,210)        │  r=36
+  │                                                     │
+  │                   REPOX(420,390)                    │  r=65
+  │  Src(95,500)                       Consumer(700,390)│  r=42 / r=36
+  └─────────────────────────────────────────────────────┘
+
+  Min gaps (centre-to-centre minus sum of radii):
+    CDO↔Council:   310-80=230,  230-32-32=166 ✓
+    Council↔CISO:  700-310=390, 390-32-32=326 ✓
+    Owner↔Steward: 285-75=210,  210-36-36=138 ✓
+    Steward↔Eng:   570-285=285, 285-36-36=213 ✓
+    Eng↔CISO (diag): safe, different rows
+    REPOX↔Consumer: 700-420=280, 280-65-36=179 ✓
+    REPOX↔Src (diag): safe distance
+*/
 
 const N = [
-  { id:'cdo',      x:148,  y:68,  l:['CDO'],             c:'#e91e8c', tc:'#fff',    r:30 },
-  { id:'council',  x:350,  y:68,  l:['Gov.','Council'],  c:'#4a5acd', tc:'#fff',    r:30 },
-  { id:'ciso',     x:572,  y:68,  l:['CISO','/DPO'],     c:'#fb8c00', tc:'#060a0f', r:30 },
-  { id:'owner',    x:110,  y:210, l:['Data','Owner'],    c:'#f4511e', tc:'#fff',    r:33 },
-  { id:'steward',  x:290,  y:210, l:['Data','Steward'],  c:'#9c27b0', tc:'#fff',    r:33 },
-  { id:'eng',      x:490,  y:210, l:['Data','Engineer'], c:'#00bcd4', tc:'#060a0f', r:33 },
-  { id:'repox',    x:400,  y:390, l:['REPOX'],           c:'#0078d4', tc:'#fff',    r:58 },
-  { id:'src',      x:118,  y:460, l:['Sistemas','Fuente SDM'], c:'#37474f', tc:'#fff', r:40 },
-  { id:'consumer', x:700,  y:390, l:['Data','Consumer'], c:'#43a047', tc:'#060a0f', r:33 },
+  { id:'cdo',      x: 80, y: 65,  l:['CDO'],               c:'#e91e8c', r:32 },
+  { id:'council',  x:310, y: 65,  l:['Gov.','Council'],    c:'#4a5acd', r:32 },
+  { id:'ciso',     x:700, y: 65,  l:['CISO','/DPO'],       c:'#fb8c00', r:32 },
+  { id:'owner',    x: 75, y:210,  l:['Data','Owner'],      c:'#f4511e', r:36 },
+  { id:'steward',  x:285, y:210,  l:['Data','Steward'],    c:'#9c27b0', r:36 },
+  { id:'eng',      x:570, y: 65,  l:['Data','Engineer'],   c:'#00bcd4', r:36 },
+  { id:'repox',    x:420, y:390,  l:['REPOX'],             c:'#0078d4', r:65 },
+  { id:'src',      x: 95, y:500,  l:['Sistemas','Fuente SDM'], c:'#37474f', r:42 },
+  { id:'consumer', x:700, y:390,  l:['Data','Consumer'],   c:'#43a047', r:36 },
 ];
 
-/* ── EDGE DEFINITIONS ──────────────────────────────────────── */
+/*
+  EDGES — cv is perpendicular offset in viewBox units.
+  Each label position is the quadratic bezier midpoint.
+  Labels placed to avoid node overlap:
+    - owner→repox:  curva izq fuerte (-70) → label queda a la izquierda
+    - owner→eng:    curva arriba (-45) → label queda arriba del camino
+    - ciso→repox:   curva derecha (+65) → label queda a la derecha
+    - council→repox: curva leve derecha (+22)
+    - steward→repox: casi recto, leve izq (-15)
+    - eng→repox:    curva derecha (+35) → label no choca con steward→repox
+*/
 const E = [
-  // Fuentes → REPOX Bronze
-  { id:'src-repox',      from:'src',     to:'repox',    l:['Copia raw','→ Bronze'],      c:'#0078d4', d:true,  cv:-20 },
-  // Owner mantiene catálogo en Purview
-  { id:'owner-purview',  from:'owner',   to:'repox',    l:['Mantiene','catálogo Purview'],c:'#f4511e', d:false, cv:-28 },
-  // Owner autoriza Engineer
-  { id:'owner-eng',      from:'owner',   to:'eng',      l:['Autoriza','ingesta'],        c:'#f4511e', d:false, cv:-22 },
-  // Engineer construye REPOX
-  { id:'eng-repox',      from:'eng',     to:'repox',    l:['Construye','& opera'],       c:'#00bcd4', d:true,  cv:22  },
-  // Steward opera Purview
-  { id:'steward-repox',  from:'steward', to:'repox',    l:['Glosario','& DQ'],           c:'#9c27b0', d:false, cv:-15 },
-  // CISO controla REPOX
-  { id:'ciso-repox',     from:'ciso',    to:'repox',    l:['Controles','seguridad'],     c:'#fb8c00', d:false, cv:30  },
-  // Council supervisa REPOX
-  { id:'council-repox',  from:'council', to:'repox',    l:['Audita','& aprueba'],        c:'#4a5acd', d:false, cv:25  },
-  // CDO → Council
-  { id:'cdo-council',    from:'cdo',     to:'council',  l:['Mandato','estratégico'],     c:'#4a5acd', d:false, cv:-18 },
-  // REPOX → Consumer
-  { id:'repox-consumer', from:'repox',   to:'consumer', l:['Gold / PBI','/ Synapse'],    c:'#00bcd4', d:false, cv:20  },
+  { id:'cdo-council',    from:'cdo',     to:'council',  l:['Mandato','estratégico'],   c:'#4a5acd', d:false, cv:-18 },
+  { id:'src-repox',      from:'src',     to:'repox',    l:['Copia raw','→ Bronze'],    c:'#0078d4', d:true,  cv: 30 },
+  { id:'owner-purview',  from:'owner',   to:'repox',    l:['Mantiene','catálogo'],     c:'#f4511e', d:false, cv:-70 },
+  { id:'owner-eng',      from:'owner',   to:'eng',      l:['Autoriza','ingesta'],      c:'#f4511e', d:false, cv:-55 },
+  { id:'steward-repox',  from:'steward', to:'repox',    l:['Glosario','& DQ'],         c:'#9c27b0', d:false, cv:-15 },
+  { id:'council-repox',  from:'council', to:'repox',    l:['Audita','& aprueba'],      c:'#4a5acd', d:false, cv: 18 },
+  { id:'eng-repox',      from:'eng',     to:'repox',    l:['Construye','& opera'],     c:'#00bcd4', d:true,  cv: 28 },
+  { id:'ciso-repox',     from:'ciso',    to:'repox',    l:['Controles','seguridad'],   c:'#fb8c00', d:false, cv: 55 },
+  { id:'repox-consumer', from:'repox',   to:'consumer', l:['Gold / PBI','/ Synapse'],  c:'#00bcd4', d:false, cv:-18 },
 ];
 
-/* ── BUILD SVG ─────────────────────────────────────────────── */
-const svg = document.getElementById('svg');
-
-// Defs + markers
+// ── DEFS ──────────────────────────────────────────────────────────────────
 const defs = document.createElementNS(NS,'defs');
-const MC = ['#0078d4','#f4511e','#00bcd4','#fb8c00','#9c27b0','#4a5acd','#43a047','#e91e8c','#37474f'];
-const MN = ['blue','orange','cyan','amber','purple','indigo','green','pink','gray'];
+const MC=['#0078d4','#f4511e','#00bcd4','#fb8c00','#9c27b0','#4a5acd','#43a047','#e91e8c','#37474f'];
+const MN=['blue','orange','cyan','amber','purple','indigo','green','pink','gray'];
 MC.forEach((c,i)=>{
-  defs.innerHTML += `<marker id="m${MN[i]}" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+  defs.innerHTML+=`<marker id="m${MN[i]}" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
     <polygon points="0 0,7 2.5,0 5" fill="${c}"/></marker>`;
 });
-// Glow for REPOX
-defs.innerHTML += `<radialGradient id="rg" cx="50%" cy="50%" r="50%">
-  <stop offset="0%"   stop-color="#0078d4" stop-opacity=".18"/>
+defs.innerHTML+=`<radialGradient id="rg" cx="50%" cy="50%" r="50%">
+  <stop offset="0%" stop-color="#0078d4" stop-opacity=".08"/>
   <stop offset="100%" stop-color="#0078d4" stop-opacity="0"/>
 </radialGradient>`;
-defs.innerHTML += `<filter id="glow">
-  <feGaussianBlur stdDeviation="6" result="b"/>
-  <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-</filter>`;
-svg.appendChild(defs);
+svgEl.appendChild(defs);
 
+// ── HELPERS ───────────────────────────────────────────────────────────────
 function gN(id){ return N.find(n=>n.id===id); }
-function mu(c){ const i=MC.indexOf(c); return i>=0?`url(#m${MN[i]})`:`url(#mblue)`; }
+function mu(c){ const i=MC.indexOf(c); return i>=0?`url(#m${MN[i]})`:'url(#mblue)'; }
 
 function ep(e){
   const a=gN(e.from), b=gN(e.to);
@@ -643,148 +688,174 @@ function ep(e){
   return [a.x+dx/d*a.r, a.y+dy/d*a.r, b.x-dx/d*b.r, b.y-dy/d*b.r];
 }
 function qpath(x1,y1,x2,y2,cv){
+  const mx=(x1+x2)/2, my=(y1+y2)/2;
+  const dx=x2-x1, dy=y2-y1, l=Math.sqrt(dx*dx+dy*dy)||1;
   if(!cv) return `M${x1} ${y1} L${x2} ${y2}`;
-  const mx=(x1+x2)/2,my=(y1+y2)/2,dx=x2-x1,dy=y2-y1,l=Math.sqrt(dx*dx+dy*dy)||1;
   return `M${x1} ${y1} Q${mx-dy/l*cv} ${my+dx/l*cv} ${x2} ${y2}`;
 }
 function qmid(x1,y1,x2,y2,cv){
-  if(!cv) return [(x1+x2)/2,(y1+y2)/2];
-  const mx=(x1+x2)/2,my=(y1+y2)/2,dx=x2-x1,dy=y2-y1,l=Math.sqrt(dx*dx+dy*dy)||1;
-  const cx=mx-dy/l*cv,cy=my+dx/l*cv;
-  return [(x1+2*cx+x2)/4,(y1+2*cy+y2)/4];
+  const mx=(x1+x2)/2, my=(y1+y2)/2;
+  if(!cv) return [mx,my];
+  const dx=x2-x1, dy=y2-y1, l=Math.sqrt(dx*dx+dy*dy)||1;
+  const cx=mx-dy/l*cv, cy=my+dx/l*cv;
+  return [0.25*x1+0.5*cx+0.25*x2, 0.25*y1+0.5*cy+0.25*y2];
 }
 
-// REPOX glow background
-const repoxN = gN('repox');
-const glowC = document.createElementNS(NS,'circle');
-glowC.setAttribute('cx',repoxN.x); glowC.setAttribute('cy',repoxN.y); glowC.setAttribute('r','90');
-glowC.setAttribute('fill','url(#rg)');
-svg.appendChild(glowC);
+// ── REPOX GLOW ────────────────────────────────────────────────────────────
+const rn=gN('repox');
+const gl=document.createElementNS(NS,'circle');
+gl.setAttribute('cx',rn.x); gl.setAttribute('cy',rn.y); gl.setAttribute('r','110');
+gl.setAttribute('fill','url(#rg)');
+svgEl.appendChild(gl);
 
-// Draw edges
+// ── DRAW EDGES ────────────────────────────────────────────────────────────
 E.forEach(e=>{
-  const [x1,y1,x2,y2] = ep(e);
-  const dp = qpath(x1,y1,x2,y2,e.cv);
-  const [mx,my] = qmid(x1,y1,x2,y2,e.cv);
-  const g = document.createElementNS(NS,'g');
+  const [x1,y1,x2,y2]=ep(e);
+  const dp=qpath(x1,y1,x2,y2,e.cv);
+  const [mx,my]=qmid(x1,y1,x2,y2,e.cv);
+  const g=document.createElementNS(NS,'g');
   g.classList.add('eg'); g.dataset.id=e.id;
 
+  // hit area
   const hit=document.createElementNS(NS,'path');
   hit.setAttribute('d',dp); hit.setAttribute('fill','none');
-  hit.setAttribute('stroke','transparent'); hit.setAttribute('stroke-width','14');
+  hit.setAttribute('stroke','transparent'); hit.setAttribute('stroke-width','16');
   g.appendChild(hit);
 
+  // visible line
   const p=document.createElementNS(NS,'path');
   p.setAttribute('d',dp); p.setAttribute('fill','none');
   p.setAttribute('stroke',e.c); p.setAttribute('stroke-width',e.d?'1.5':'2');
-  p.setAttribute('stroke-opacity','.55');
+  p.setAttribute('stroke-opacity','.7');
   if(e.d) p.setAttribute('stroke-dasharray','5 4');
   p.setAttribute('marker-end',mu(e.c)); p.classList.add('ep');
   g.appendChild(p);
 
-  const bw=72,bh=e.l.length===1?20:30;
+  // label
+  const bw=80, bh=30;
   const bg=document.createElementNS(NS,'rect');
   bg.setAttribute('x',mx-bw/2); bg.setAttribute('y',my-bh/2);
   bg.setAttribute('width',bw); bg.setAttribute('height',bh);
-  bg.setAttribute('rx','3'); bg.setAttribute('fill','#06090f');
-  bg.setAttribute('stroke',e.c); bg.setAttribute('stroke-width','.7');
-  bg.setAttribute('stroke-opacity','.35'); bg.classList.add('elb');
+  bg.setAttribute('rx','3'); bg.setAttribute('fill','#ffffff');
+  bg.setAttribute('stroke',e.c); bg.setAttribute('stroke-width','.8');
+  bg.setAttribute('stroke-opacity','.55'); bg.classList.add('elb');
   g.appendChild(bg);
 
   e.l.forEach((t,i)=>{
     const txt=document.createElementNS(NS,'text');
-    const yOff = e.l.length===1 ? my+3.5 : my - (e.l.length-1)*6 + i*12 + 3;
-    txt.setAttribute('x',mx); txt.setAttribute('y',yOff);
+    txt.setAttribute('x',mx);
+    txt.setAttribute('y', e.l.length===1 ? my+4.5 : my-5+i*13);
     txt.setAttribute('text-anchor','middle');
-    txt.setAttribute('font-size','8'); txt.setAttribute('fill',e.c);
+    txt.setAttribute('font-size','11'); txt.setAttribute('fill',e.c);
     txt.classList.add('elt'); txt.textContent=t;
     g.appendChild(txt);
   });
 
   g.addEventListener('click',()=>selEdge(e.id));
-  svg.appendChild(g);
+  svgEl.appendChild(g);
 });
 
-// Draw nodes
+// ── DRAW NODES ────────────────────────────────────────────────────────────
 N.forEach(n=>{
   const g=document.createElementNS(NS,'g');
   g.classList.add('ng'); g.dataset.id=n.id;
 
   if(n.id==='repox'){
-    const o=document.createElementNS(NS,'circle');
-    o.setAttribute('cx',n.x); o.setAttribute('cy',n.y); o.setAttribute('r',n.r+14);
-    o.setAttribute('fill','none'); o.setAttribute('stroke',n.c);
-    o.setAttribute('stroke-width','1'); o.setAttribute('stroke-opacity','.15');
-    g.appendChild(o);
-    const o2=document.createElementNS(NS,'circle');
-    o2.setAttribute('cx',n.x); o2.setAttribute('cy',n.y); o2.setAttribute('r',n.r+7);
-    o2.setAttribute('fill','none'); o2.setAttribute('stroke',n.c);
-    o2.setAttribute('stroke-width','1'); o2.setAttribute('stroke-opacity','.25');
-    g.appendChild(o2);
+    [18,10].forEach((x,si)=>{
+      const o=document.createElementNS(NS,'circle');
+      o.setAttribute('cx',n.x); o.setAttribute('cy',n.y); o.setAttribute('r',n.r+x);
+      o.setAttribute('fill','none'); o.setAttribute('stroke',n.c);
+      o.setAttribute('stroke-width','1');
+      o.setAttribute('stroke-opacity', si===0?'.13':'.24');
+      g.appendChild(o);
+    });
   }
 
+  // hover ring
   const ring=document.createElementNS(NS,'circle');
-  ring.setAttribute('cx',n.x); ring.setAttribute('cy',n.y); ring.setAttribute('r',n.r+8);
+  ring.setAttribute('cx',n.x); ring.setAttribute('cy',n.y); ring.setAttribute('r',n.r+9);
   ring.setAttribute('fill','none'); ring.setAttribute('stroke',n.c);
   ring.setAttribute('stroke-width','1.5'); ring.setAttribute('stroke-opacity','.45');
   ring.classList.add('nring'); g.appendChild(ring);
 
+  // outer fill
   const c1=document.createElementNS(NS,'circle');
   c1.setAttribute('cx',n.x); c1.setAttribute('cy',n.y); c1.setAttribute('r',n.r);
-  c1.setAttribute('fill',n.c); c1.setAttribute('fill-opacity',n.id==='repox'?'.2':'.11');
-  c1.setAttribute('stroke',n.c); c1.setAttribute('stroke-width','1.5');
+  c1.setAttribute('fill',n.c);
+  c1.setAttribute('fill-opacity', n.id==='repox'?'.15':'.09');
+  c1.setAttribute('stroke',n.c); c1.setAttribute('stroke-width','2');
   g.appendChild(c1);
 
+  // inner fill
   const c2=document.createElementNS(NS,'circle');
-  c2.setAttribute('cx',n.x); c2.setAttribute('cy',n.y); c2.setAttribute('r',n.r-10);
-  c2.setAttribute('fill',n.c); c2.setAttribute('fill-opacity',n.id==='repox'?'.22':'.16');
+  c2.setAttribute('cx',n.x); c2.setAttribute('cy',n.y); c2.setAttribute('r',n.r*0.62);
+  c2.setAttribute('fill',n.c);
+  c2.setAttribute('fill-opacity', n.id==='repox'?'.20':'.14');
   c2.setAttribute('stroke','none'); g.appendChild(c2);
 
-  const fs=n.id==='repox'?'13':'9.5';
-  const totalH=(n.l.length-1)*13;
+  // label text
+  const fs   = n.id==='repox' ? 14 : 10;
+  const lh   = n.id==='repox' ? 15 : 12;
+  const topY = n.y - ((n.l.length-1)*lh)/2;
   n.l.forEach((line,i)=>{
     const t=document.createElementNS(NS,'text');
     t.setAttribute('x',n.x);
-    t.setAttribute('y', n.y - totalH/2 + i*13 + 1);
-    t.setAttribute('text-anchor','middle'); t.setAttribute('dominant-baseline','middle');
+    t.setAttribute('y', topY + i*lh);
+    t.setAttribute('text-anchor','middle');
+    t.setAttribute('dominant-baseline','middle');
     t.setAttribute('font-family','IBM Plex Mono,monospace');
-    t.setAttribute('font-size',fs); t.setAttribute('font-weight','600');
-    t.setAttribute('fill',n.c); t.textContent=line;
+    t.setAttribute('font-size',fs);
+    t.setAttribute('font-weight','600');
+    t.setAttribute('fill',n.c);
+    t.textContent=line;
     g.appendChild(t);
   });
 
+  // REPOX subtitle
   if(n.id==='repox'){
     const sub=document.createElementNS(NS,'text');
-    sub.setAttribute('x',n.x); sub.setAttribute('y',n.y+23);
+    sub.setAttribute('x',n.x); sub.setAttribute('y',n.y+30);
     sub.setAttribute('text-anchor','middle');
     sub.setAttribute('font-family','IBM Plex Mono,monospace');
-    sub.setAttribute('font-size','6.5'); sub.setAttribute('fill',n.c);
+    sub.setAttribute('font-size','6.5');
+    sub.setAttribute('fill','#0078d4');
     sub.setAttribute('fill-opacity','.55');
     sub.textContent='ADLS · Synapse · Databricks · Power BI · Purview';
     g.appendChild(sub);
   }
 
   g.addEventListener('click',()=>selNode(n.id));
-  svg.appendChild(g);
+  svgEl.appendChild(g);
 });
 
-/* ── PANEL INTERACTION ─────────────────────────────────────── */
-const TT = {
+// ── PANEL ─────────────────────────────────────────────────────────────────
+const TT={
   cdo:'CDO', council:'Gov. Council', ciso:'CISO / DPO',
   owner:'Data Owner', steward:'Data Steward', eng:'Data Engineer',
   repox:'REPOX — Repositorio Unificado SDM',
   src:'Sistemas Fuente SDM', consumer:'Data Consumer',
 };
-const TD = {
-  cdo:'Chief Data Officer — Sponsor ejecutivo de REPOX y gobernanza SDM',
-  council:'Comité federado — Aprueba políticas y supervisa REPOX',
-  ciso:'CISO / DPO — Controla seguridad, privacidad y cumplimiento Ley 1581',
-  owner:'Responsable de negocio — Mantiene catálogo Purview y autoriza ingestas',
-  steward:'Operador de gobernanza diaria — Glosario, DQ y Data Contracts en Purview',
-  eng:'Construye y opera REPOX técnicamente — pipelines, capas, seguridad',
-  repox:'Lakehouse corporativo sobre Azure — punto único de consulta analítica SDM',
-  src:'Sistemas operacionales de la SDM — fuentes oficiales del dato',
-  consumer:'Analistas, científicos de datos y gestores — consultan REPOX',
+const TD={
+  cdo:'Aprueba REPOX como plataforma institucional que materializa la gobernanza SDM',
+  council:'Define las políticas que REPOX ejecuta técnicamente como controles activos',
+  ciso:'Define controles de seguridad y privacidad que REPOX implementa y audita',
+  owner:'Dependencia SDM que administra el sistema fuente — OFV, DIM, SCC y otras',
+  steward:'Opera los instrumentos de gobernanza que REPOX expone: catálogo, DQ, linaje',
+  eng:'Construye e implementa técnicamente los controles de gobernanza en REPOX',
+  repox:'Plataforma que materializa y ejecuta los controles de gobernanza de la SDM sobre Azure',
+  src:'Sistemas operacionales SDM — cada uno con su dependencia Data Owner responsable',
+  consumer:'Accede solo a datos que REPOX ha certificado — gobernanza aplicada antes del consumo',
+};
+const EMETA={
+  'src-repox':     {from:'Fuentes SDM',  to:'REPOX · Bronze'},
+  'owner-purview': {from:'Data Owner',   to:'Azure Purview'},
+  'owner-eng':     {from:'Data Owner',   to:'Data Engineer'},
+  'eng-repox':     {from:'Data Engineer',to:'REPOX'},
+  'steward-repox': {from:'Data Steward', to:'REPOX · Purview'},
+  'ciso-repox':    {from:'CISO / DPO',   to:'REPOX'},
+  'council-repox': {from:'Gov. Council', to:'REPOX'},
+  'cdo-council':   {from:'CDO',          to:'Gov. Council'},
+  'repox-consumer':{from:'REPOX',        to:'Data Consumer'},
 };
 
 function clearAll(){
@@ -793,27 +864,26 @@ function clearAll(){
   document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
   document.getElementById('def').style.display='flex';
 }
-
 function selNode(id){
   clearAll();
-  document.getElementById('pt').textContent = TT[id]||id;
-  document.getElementById('pd').textContent = TD[id]||'';
+  document.getElementById('pt').textContent=TT[id]||id;
+  document.getElementById('pd').textContent=TD[id]||'';
   document.getElementById('def').style.display='none';
   const c=document.getElementById('n-'+id);
   if(c) c.classList.add('active');
-  document.querySelector(`.ng[data-id="${id}"]`).classList.add('sn');
+  const ng=document.querySelector(`.ng[data-id="${id}"]`);
+  if(ng) ng.classList.add('sn');
 }
-
 function selEdge(id){
   clearAll();
-  const e=E.find(x=>x.id===id);
-  const a=gN(e.from), b=gN(e.to);
-  document.getElementById('pt').textContent = `${a.l.join(' ')} → ${b.l.join(' ')}`;
-  document.getElementById('pd').textContent = 'Flujo, entregables y políticas de esta interacción';
+  const m=EMETA[id]||{from:'',to:''};
+  document.getElementById('pt').textContent=`${m.from} → ${m.to}`;
+  document.getElementById('pd').textContent='Flujo, entregables y políticas de esta interacción';
   document.getElementById('def').style.display='none';
   const c=document.getElementById('e-'+id);
   if(c) c.classList.add('active');
-  document.querySelector(`.eg[data-id="${id}"]`).classList.add('se');
+  const eg=document.querySelector(`.eg[data-id="${id}"]`);
+  if(eg) eg.classList.add('se');
 }
 </script>
 </body>
