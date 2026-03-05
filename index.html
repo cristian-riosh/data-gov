@@ -115,7 +115,18 @@ body {
 .dbb ul li::before { content:'·'; color:var(--tdim); flex-shrink:0; font-size:13px; }
 
 .legend { position:absolute; bottom:12px; left:12px; display:flex; flex-direction:column; gap:5px; pointer-events:none; }
-.leg { display:flex; align-items:center; gap:6px; font-family:var(--mono); font-size:10px; color:var(--tdim); }
+.leg { display:flex; align-items:center; gap:6px; font-family:var(--mono); font-size:10px; color:var(--tdim);
+  opacity:0; animation: leg-in .5s ease forwards; }
+.leg:nth-child(1) { animation-delay: .1s; }
+.leg:nth-child(2) { animation-delay: .25s; }
+.leg:nth-child(3) { animation-delay: .4s; }
+.leg:nth-child(4) { animation-delay: .55s; }
+.leg:nth-child(5) { animation-delay: .7s; }
+.leg:nth-child(6) { animation-delay: .85s; }
+@keyframes leg-in {
+  from { opacity:0; transform:translateX(-6px); }
+  to   { opacity:1; transform:translateX(0); }
+}
 .ll  { width:18px; height:2px; }
 
 .canvas-hint {
@@ -138,10 +149,21 @@ body {
   padding: 4px 9px;
   display: inline-block;
   backdrop-filter: blur(4px);
+  opacity:0; animation: hint-in .5s ease both;
 }
-.canvas-hint span strong {
-  color: #0078d4;
-  font-weight: 600;
+.canvas-hint span:nth-child(1) { animation-delay: .05s; }
+.canvas-hint span:nth-child(2) { animation-delay: .2s; }
+@keyframes hint-in {
+  from { opacity:0; transform:translateY(-4px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.canvas-hint span strong.arr {
+  display: inline-block;
+  animation: arr-pulse 2s ease-in-out infinite;
+}
+@keyframes arr-pulse {
+  0%, 100% { opacity: 1; transform: translateX(0); }
+  50%       { opacity: 0.5; transform: translateX(3px); }
 }
 
 /* SVG */
@@ -179,8 +201,8 @@ body {
   <div class="diag">
     <svg id="svg" viewBox="0 0 800 580" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;display:block;"></svg>
     <div class="canvas-hint">
-      <span>⬡ Clic en <strong>nodo</strong> → detalle del rol</span>
-      <span>⟿ Clic en <strong>arista</strong> → flujo y entregables</span>
+      <span>&#9711; Clic en <strong>nodo</strong> &rarr; detalle del rol</span>
+      <span><strong class="arr" style="font-size:16px;color:#0078d4">&rarr;</strong> Clic en <strong>arista</strong> &rarr; flujo y entregables</span>
     </div>
     <div class="legend">
       <div class="leg"><div class="ll" style="background:#4a5acd"></div>Política / mandato</div>
