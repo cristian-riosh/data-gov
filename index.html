@@ -656,11 +656,11 @@ const E = [
   { id:'cdo-council',    from:'cdo',     to:'council',  l:['Mandato','estratégico'],   c:'#4a5acd', d:false, cv:-18 },
   { id:'src-repox',      from:'src',     to:'repox',    l:['Copia raw','→ Bronze'],    c:'#0078d4', d:true,  cv: 30 },
   { id:'owner-purview',  from:'owner',   to:'repox',    l:['Mantiene','catálogo'],     c:'#f4511e', d:false, cv:-70 },
-  { id:'owner-eng',      from:'owner',   to:'eng',      l:['Autoriza','ingesta'],      c:'#f4511e', d:false, cv:-55 },
+  { id:'owner-eng',      from:'owner',   to:'eng',      l:['Autoriza','ingesta'],      c:'#f4511e', d:false, cv:-55, lp:0.25 },
   { id:'steward-repox',  from:'steward', to:'repox',    l:['Glosario','& DQ'],         c:'#9c27b0', d:false, cv:-15 },
   { id:'council-repox',  from:'council', to:'repox',    l:['Audita','& aprueba'],      c:'#4a5acd', d:false, cv: 18 },
   { id:'eng-repox',      from:'eng',     to:'repox',    l:['Construye','& opera'],     c:'#00bcd4', d:true,  cv: 28 },
-  { id:'ciso-repox',     from:'ciso',    to:'repox',    l:['Controles','seguridad'],   c:'#fb8c00', d:false, cv: 55 },
+  { id:'ciso-repox',     from:'ciso',    to:'repox',    l:['Controles','seguridad'],   c:'#fb8c00', d:false, cv: 55, lp:0.25 },
   { id:'repox-consumer', from:'repox',   to:'consumer', l:['Gold / PBI','/ Synapse'],  c:'#00bcd4', d:false, cv:-18 },
 ];
 
@@ -693,12 +693,14 @@ function qpath(x1,y1,x2,y2,cv){
   if(!cv) return `M${x1} ${y1} L${x2} ${y2}`;
   return `M${x1} ${y1} Q${mx-dy/l*cv} ${my+dx/l*cv} ${x2} ${y2}`;
 }
-function qmid(x1,y1,x2,y2,cv){
+function qmid(x1,y1,x2,y2,cv,t=0.5){
   const mx=(x1+x2)/2, my=(y1+y2)/2;
-  if(!cv) return [mx,my];
   const dx=x2-x1, dy=y2-y1, l=Math.sqrt(dx*dx+dy*dy)||1;
+  if(!cv) return [x1+dx*t, y1+dy*t];
   const cx=mx-dy/l*cv, cy=my+dx/l*cv;
-  return [0.25*x1+0.5*cx+0.25*x2, 0.25*y1+0.5*cy+0.25*y2];
+  // quadratic bezier at parameter t: (1-t)²·P0 + 2t(1-t)·CP + t²·P1
+  const u=1-t;
+  return [u*u*x1+2*t*u*cx+t*t*x2, u*u*y1+2*t*u*cy+t*t*y2];
 }
 
 // ── REPOX GLOW ────────────────────────────────────────────────────────────
@@ -712,7 +714,7 @@ svgEl.appendChild(gl);
 E.forEach(e=>{
   const [x1,y1,x2,y2]=ep(e);
   const dp=qpath(x1,y1,x2,y2,e.cv);
-  const [mx,my]=qmid(x1,y1,x2,y2,e.cv);
+  const [mx,my]=qmid(x1,y1,x2,y2,e.cv, e.lp||0.5);
   const g=document.createElementNS(NS,'g');
   g.classList.add('eg'); g.dataset.id=e.id;
 
@@ -811,18 +813,7 @@ N.forEach(n=>{
     g.appendChild(t);
   });
 
-  // REPOX subtitle
-  if(n.id==='repox'){
-    const sub=document.createElementNS(NS,'text');
-    sub.setAttribute('x',n.x); sub.setAttribute('y',n.y+30);
-    sub.setAttribute('text-anchor','middle');
-    sub.setAttribute('font-family','IBM Plex Mono,monospace');
-    sub.setAttribute('font-size','6.5');
-    sub.setAttribute('fill','#0078d4');
-    sub.setAttribute('fill-opacity','.55');
-    sub.textContent='ADLS · Synapse · Databricks · Power BI · Purview';
-    g.appendChild(sub);
-  }
+  // REPOX subtitle removed
 
   g.addEventListener('click',()=>selNode(n.id));
   svgEl.appendChild(g);
