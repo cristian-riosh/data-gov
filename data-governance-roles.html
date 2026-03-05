@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Governance — Roles e Interacciones</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --bg: #0a0d12;
+    --surface: #111520;
+    --surface2: #161c2a;
+    --border: #1e2840;
+    --border2: #2a3554;
+    --text: #c8d4e8;
+    --text-dim: #5a6a8a;
+    --text-bright: #e8f0ff;
+    --accent: #3d6fff;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .header {
+    padding: 28px 40px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .header-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .header-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-bright);
+  }
+  .header-subtitle {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 3px;
+  }
+  .header-note {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    text-align: right;
+    line-height: 1.7;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    height: calc(100vh - 94px);
+  }
+
+  .diagram-area {
+    position: relative;
+    overflow: hidden;
+    border-right: 1px solid var(--border);
+  }
+
+  svg#diagram {
+    width: 100%;
+    height: 100%;
+  }
+
+  .panel {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+  }
+
+  .panel-header {
+    padding: 18px 22px 14px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .panel-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 5px;
+  }
+  .panel-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-bright);
+  }
+  .panel-desc {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 3px;
+    line-height: 1.5;
+  }
+
+  .panel-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 18px 22px;
+  }
+  .panel-body::-webkit-scrollbar { width: 3px; }
+  .panel-body::-webkit-scrollbar-thumb { background: var(--border2); }
+
+  .default-state {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    opacity: 0.4;
+  }
+  .default-icon {
+    font-size: 28px;
+    color: var(--text-dim);
+  }
+  .default-text {
+    font-size: 11px;
+    color: var(--text-dim);
+    text-align: center;
+    line-height: 1.6;
+    max-width: 160px;
+  }
+
+  .role-card, .interaction-card { display: none; }
+  .role-card.active, .interaction-card.active { display: block; }
+
+  .role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .role-badge .dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .role-desc {
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.65;
+    margin-bottom: 18px;
+    padding: 10px 12px;
+    background: var(--surface2);
+    border-left: 2px solid var(--border2);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+    margin-top: 18px;
+  }
+  .section-label:first-of-type { margin-top: 0; }
+
+  .list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .list li {
+    font-size: 11px;
+    color: var(--text);
+    padding: 7px 10px;
+    background: var(--surface2);
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    display: flex;
+    gap: 7px;
+    align-items: flex-start;
+    line-height: 1.5;
+  }
+  .list li::before {
+    content: '→';
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .int-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    padding: 4px 9px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 600;
+    font-family: var(--mono);
+  }
+  .arrow { font-size: 13px; color: var(--text-dim); }
+
+  .int-type {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border-radius: 3px;
+    border: 1px solid;
+    margin-bottom: 14px;
+    display: inline-block;
+  }
+  .tp { color: #f59e0b; border-color: #f59e0b40; background: #f59e0b08; }
+  .te { color: #4ade80; border-color: #4ade8040; background: #4ade8008; }
+  .tr { color: #a855f7; border-color: #a855f740; background: #a855f708; }
+  .tc { color: #22d3ee; border-color: #22d3ee40; background: #22d3ee08; }
+
+  .int-desc {
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+
+  .dblock {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .dblock-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-bright);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .dtag {
+    font-size: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 2px 5px;
+    border-radius: 2px;
+    border: 1px solid;
+  }
+  .dblock-body {
+    padding: 8px 10px;
+    font-size: 11px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .dblock-body ul { list-style: none; display: flex; flex-direction: column; gap: 4px; margin-top: 4px; }
+  .dblock-body ul li { display: flex; gap: 7px; align-items: flex-start; }
+  .dblock-body ul li::before { content: '·'; color: var(--text-dim); flex-shrink: 0; }
+
+  .legend {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    pointer-events: none;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-dim);
+  }
+  .legend-line { width: 20px; height: 2px; }
+
+  .node-group { cursor: pointer; }
+  .edge-group { cursor: pointer; }
+  .node-ring { opacity: 0; transition: opacity 0.2s; }
+  .edge-path { transition: stroke-width 0.2s; }
+  .elb { opacity: 0.55; transition: opacity 0.2s; }
+  .elt { opacity: 0.65; transition: opacity 0.2s, fill 0.2s; font-family: 'IBM Plex Mono', monospace; }
+
+  .node-group:hover .node-ring { opacity: 1; }
+  .edge-group:hover .edge-path { stroke-width: 3; }
+  .edge-group:hover .elb { opacity: 1; }
+  .edge-group:hover .elt { opacity: 1; fill: #e8f0ff !important; }
+
+  .selected-node .node-ring { opacity: 1 !important; }
+  .selected-edge .edge-path { stroke-width: 3 !important; }
+  .selected-edge .elb { opacity: 1 !important; }
+  .selected-edge .elt { opacity: 1 !important; fill: #e8f0ff !important; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="header-tag">Data Governance</div>
+    <div class="header-title">Mapa de Roles e Interacciones</div>
+    <div class="header-subtitle">Relaciones materializadas en políticas, entregables y responsabilidades</div>
+  </div>
+  <div class="header-note">
+    Clic en un <strong style="color:var(--text)">nodo</strong> → detalle del rol<br>
+    Clic en una <strong style="color:var(--text)">arista</strong> → detalle de la interacción
+  </div>
+</div>
+
+<div class="layout">
+  <div class="diagram-area">
+    <svg id="diagram" viewBox="0 0 800 600"></svg>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-line" style="background:#3d6fff"></div>Política / mandato</div>
+      <div class="legend-item"><div class="legend-line" style="background:#4ade80;height:1px;border-top:1px dashed #4ade80"></div>Entregable</div>
+      <div class="legend-item"><div class="legend-line" style="background:#a855f7"></div>Responsabilidad compartida</div>
+      <div class="legend-item"><div class="legend-line" style="background:#f59e0b"></div>Control / aprobación</div>
+      <div class="legend-item"><div class="legend-line" style="background:#22d3ee"></div>Autorización</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-label">Detalle seleccionado</div>
+      <div class="panel-title" id="panel-title">Selecciona un elemento</div>
+      <div class="panel-desc" id="panel-desc">Haz clic en un rol o en una interacción del diagrama.</div>
+    </div>
+    <div class="panel-body">
+      <div class="default-state" id="default-state">
+        <div class="default-icon">⬡</div>
+        <div class="default-text">Selecciona un nodo o arista para explorar políticas, entregables y responsabilidades</div>
+      </div>
+
+      <!-- ROLES -->
+      <div class="role-card" id="role-cdo">
+        <div class="role-badge" style="background:#ec4899;color:#fff;"><span class="dot" style="background:#fff"></span>CDO</div>
+        <div class="role-desc">Sponsor ejecutivo con autoridad organizacional real. Sin CDO (o equivalente con poder de decisión), la gobernanza no tiene peso institucional y queda como proyecto de TI sin tracción.</div>
+        <div class="section-label">Responsabilidades</div>
+        <ul class="list">
+          <li>Aprobar visión, principios y roadmap de gobernanza</li>
+          <li>Presidir o patrocinar el Data Governance Council</li>
+          <li>Asignar presupuesto para herramientas y roles</li>
+          <li>Resolver escalaciones que superan al Council</li>
+          <li>Reportar KPIs de gobernanza a dirección ejecutiva</li>
+        </ul>
+        <div class="section-label">Entregables propios</div>
+        <ul class="list">
+          <li>Documento de visión y principios (firmado)</li>
+          <li>Roadmap estratégico de madurez de datos</li>
+          <li>Dashboard ejecutivo de KPIs de gobernanza</li>
+        </ul>
+      </div>
+
+      <div class="role-card" id="role-council">
+        <div class="role-badge" style="background:#3d6fff;color:#fff;"><span class="dot" style="background:#fff"></span>Gov. Council</div>
+        <div class="role-desc">Comité federado cross-dominio. Integrado por representantes de cada dominio + CDO. Opera por excepción: cuando los dominios no pueden resolver un conflicto solos, o cuando se aprueban nuevas políticas y estándares.</div>
+        <div class="section-label">Responsabilidades</div>
+        <ul class="list">
+          <li>Aprobar políticas y estándares de gobernanza</li>
+          <li>Resolver conflictos de definición entre dominios</li>
+          <li>Aprobar excepciones con condiciones y vigencia</li>
+          <li>Revisar Data Contracts que cruzan dominios o involucran PII</li>
+          <li>Priorizar el backlog de gobernanza</li>
+        </ul>
+        <div class="section-label">Entregables propios</div>
+        <ul class="list">
+          <li>Actas de resolución con decisiones y racional</li>
+          <li>Registro de excepciones aprobadas</li>
+          <li>Política de gobernanza vigente (versión oficial)</li>
+        </ul>
+      </div>
+
+      <div class="role-card" id="role-owner">
+        <div class="role-badge" style="background:#ff6b35;color:#fff;"><span class="dot" style="background:#fff"></span>Data Owner</div>
+        <div class="role-desc">Responsable de negocio del dominio. Tiene autoridad para decidir el significado, uso y acceso a los datos. Es un rol de negocio — el Data Engineer implementa, pero no puede tomar decisiones de significado ni acceso.</div>
+        <div class="section-label">Responsabilidades</div>
+        <ul class="list">
+          <li>Definir y aprobar el significado de términos del dominio</li>
+          <li>Autorizar acceso a datos del dominio (por propósito)</li>
+          <li>Aprobar cambios breaking en esquemas o semántica</li>
+          <li>Aceptar SLAs como compromisos formales del dominio</li>
+          <li>Firmar Data Contracts como productor</li>
+          <li>Escalar conflictos cross-dominio al Council</li>
+        </ul>
+        <div class="section-label">Entregables propios</div>
+        <ul class="list">
+          <li>Aprobación firmada de definiciones en el glosario</li>
+          <li>Registro de autorización de acceso en el catálogo</li>
+          <li>Data Contract firmado como productor</li>
+        </ul>
+      </div>
+
+      <div class="role-card" id="role-steward">
+        <div class="role-badge" style="background:#a855f7;color:#fff;"><span class="dot" style="background:#fff"></span>Data Steward</div>
+        <div class="role-desc">Operador de gobernanza en el día a día. Gestiona glosario, reglas DQ, catálogo y coordina incidentes de calidad. Puente entre el negocio (Owner) y la plataforma (Engineer). Sin Steward activo, el catálogo queda desactualizado en semanas.</div>
+        <div class="section-label">Responsabilidades</div>
+        <ul class="list">
+          <li>Mantener el glosario actualizado y aprobado</li>
+          <li>Definir reglas DQ y umbrales de severidad</li>
+          <li>Coordinar resolución de incidentes de calidad</li>
+          <li>Documentar datasets en el catálogo (plantilla completa)</li>
+          <li>Redactar y negociar Data Contracts</li>
+          <li>Revisar y validar cambios de esquema propuestos</li>
+        </ul>
+        <div class="section-label">Entregables propios</div>
+        <ul class="list">
+          <li>Glosario de negocio (términos con definición y regla de cálculo)</li>
+          <li>Especificación de reglas DQ por dataset</li>
+          <li>Ficha completa de dataset en catálogo</li>
+          <li>Draft de Data Contract para aprobación del Owner</li>
+          <li>Reporte de incidentes de calidad (causa, acción correctiva)</li>
+        </ul>
+      </div>
+
+      <div class="role-card" id="role-engineer">
+        <div class="role-badge" style="background:#22d3ee;color:#0a0d12;"><span class="dot" style="background:#0a0d12"></span>Data Engineer</div>
+        <div class="role-desc">Implementador técnico de la gobernanza. Construye pipelines, aplica controles DQ en código, implementa seguridad técnica y opera la observabilidad. Ejecuta las decisiones de negocio con rigor técnico.</div>
+        <div class="section-label">Responsabilidades</div>
+        <ul class="list">
+          <li>Implementar pipelines Bronze → Silver → Gold con tests DQ</li>
+          <li>Codificar Data Contracts (dbt Contracts / YAML)</li>
+          <li>Aplicar enmascaramiento, RLS/CLS e IAM según CISO</li>
+          <li>Configurar observabilidad: freshness, volume, schema drift</li>
+          <li>Implementar linaje técnico automático (OpenLineage)</li>
+          <li>Ejecutar reprocesamiento desde Bronze ante incidentes Sev1</li>
+        </ul>
+        <div class="section-label">Entregables propios</div>
+        <ul class="list">
+          <li>Pipeline con tests DQ en repositorio (código auditado)</li>
+          <li>Data Contract implementado y validado en CI/CD</li>
+          <li>DQ Score publicado en catálogo con tendencia</li>
+          <li>Runbook de incidentes y reprocesamiento</li>
+          <li>Linaje técnico en catálogo</li>
+        </ul>
+      </div>
+
+      <div class="role-card" id="role-consumer">
+        <div class="role-badge" style="background:#4ade80;color:#0a0d12;"><span class="dot" style="background:#0a0d12"></span>Data Consumer</div>
+        <div class="role-desc">Analistas BI, científicos de datos, PMs. Valida el "fitness for use" — que el dato publicado sirve para su propósito específico. Es el primer eslabón en detectar incidentes de calidad analítica (un dato técnicamente correcto pero inadecuado para el caso de uso).</div>
+        <div class="section-label">Responsabilidades</div>
+        <ul class="list">
+          <li>Usar datos dentro de los términos y clasificación definidos</li>
+          <li>Reportar incidentes de calidad al detectar anomalías en consumo</li>
+          <li>Validar fitness for use para nuevos datasets</li>
+          <li>Participar en negociación de Data Contracts como consumidor</li>
+          <li>Conectar tableros únicamente a Gold / capa semántica</li>
+        </ul>
+        <div class="section-label">Entregables propios</div>
+        <ul class="list">
+          <li>Reporte de incidente de calidad analítica (con contexto de uso)</li>
+          <li>Sign-off de aceptación del Data Contract como consumidor</li>
+          <li>Retroalimentación sobre fitness for use al Steward</li>
+        </ul>
+      </div>
+
+      <div class="role-card" id="role-ciso">
+        <div class="role-badge" style="background:#f59e0b;color:#0a0d12;"><span class="dot" style="background:#0a0d12"></span>CISO / DPO</div>
+        <div class="role-desc">Custodio de seguridad y privacidad. Impone controles no negociables derivados de la clasificación y regulación aplicable. Su aprobación es prerrequisito para acceder a datos Confidenciales o Sensibles (PII).</div>
+        <div class="section-label">Responsabilidades</div>
+        <ul class="list">
+          <li>Definir y mantener la taxonomía de clasificación de datos</li>
+          <li>Aprobar accesos a datos Confidenciales y Sensibles (PII)</li>
+          <li>Especificar controles técnicos: enmascaramiento, tokenización, RLS/CLS</li>
+          <li>Supervisar auditoría de accesos y responder ante brechas</li>
+          <li>Gestionar cumplimiento regulatorio (GDPR, Ley 1581, RNBD, ARCO)</li>
+          <li>Aprobar sección de seguridad en Data Contracts</li>
+        </ul>
+        <div class="section-label">Entregables propios</div>
+        <ul class="list">
+          <li>Política de clasificación de datos con controles mínimos por nivel</li>
+          <li>Política de retención y eliminación</li>
+          <li>Registro de accesos autorizados a PII</li>
+          <li>Informe de auditoría de accesos (periódico)</li>
+          <li>Documentación de cumplimiento regulatorio</li>
+        </ul>
+      </div>
+
+      <!-- INTERACCIONES -->
+      <div class="interaction-card" id="int-cdo-council">
+        <div class="int-header">
+          <span class="chip" style="background:#ec4899;color:#fff;">CDO</span>
+          <span class="arrow">⟷</span>
+          <span class="chip" style="background:#3d6fff;color:#fff;">Council</span>
+        </div>
+        <span class="int-type tp">Política / Mandato</span>
+        <p class="int-desc">El CDO otorga el mandato estratégico y presupuestal al Council. El Council retorna métricas de gobernanza y escala las decisiones que superan su ámbito. Es la relación de gobierno estratégico del modelo.</p>
+        <div class="dblock">
+          <div class="dblock-title">CDO → Council <span class="dtag tp">política</span></div>
+          <div class="dblock-body"><ul>
+            <li>Visión y principios de gobernanza aprobados</li>
+            <li>Prioridades estratégicas del roadmap de madurez</li>
+            <li>Presupuesto asignado para herramientas y roles dedicados</li>
+            <li>Resolución de escalaciones que superan al Council</li>
+          </ul></div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-title">Council → CDO <span class="dtag te">entregable</span></div>
+          <div class="dblock-body"><ul>
+            <li>Dashboard de KPIs de gobernanza para reporte ejecutivo</li>
+            <li>Actas de decisiones y excepciones aprobadas</li>
+            <li>Escalaciones que requieren autoridad del CDO</li>
+            <li>Diagnóstico de madurez actualizado (trimestral)</li>
+          </ul></div>
+        </div>
+      </div>
+
+      <div class="interaction-card" id="int-council-owner">
+        <div class="int-header">
+          <span class="chip" style="background:#3d6fff;color:#fff;">Council</span>
+          <span class="arrow">⟷</span>
+          <span class="chip" style="background:#ff6b35;color:#fff;">Data Owner</span>
+        </div>
+        <span class="int-type tc">Control / Aprobación</span>
+        <p class="int-desc">El Council aprueba las políticas que los Owners deben implementar en sus dominios. Los Owners escalan conflictos cross-dominio y participan como representantes de sus dominios en el comité.</p>
+        <div class="dblock">
+          <div class="dblock-title">Council → Owner <span class="dtag tp">política</span></div>
+          <div class="dblock-body"><ul>
+            <li>Políticas vigentes: acceso, calidad, retención, uso aceptable</li>
+            <li>Estándares de clasificación y nomenclatura aprobados</li>
+            <li>Resolución de conflictos de definición cross-dominio</li>
+            <li>Excepciones aprobadas con condiciones y fecha de expiración</li>
+          </ul></div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-title">Owner → Council <span class="dtag te">entregable</span></div>
+          <div class="dblock-body"><ul>
+            <li>Escalación de conflictos irresolubles entre dominios</li>
+            <li>Solicitudes de excepción con justificación de negocio</li>
+            <li>Voto de representación del dominio en aprobación de políticas</li>
+          </ul></div>
+        </div>
+      </div>
+
+      <div class="interaction-card" id="int-owner-steward">
+        <div class="int-header">
+          <span class="chip" style="background:#ff6b35;color:#fff;">Data Owner</span>
+          <span class="arrow">⟷</span>
+          <span class="chip" style="background:#a855f7;color:#fff;">Data Steward</span>
+        </div>
+        <span class="int-type tr">Responsabilidad compartida</span>
+        <p class="int-desc">La dupla operativa central. El Owner decide el significado y uso; el Steward lo documenta, mantiene y operacionaliza. Sin esta dupla activa, el catálogo queda huérfano y las reglas DQ quedan sin actualizar.</p>
+        <div class="dblock">
+          <div class="dblock-title">Owner → Steward <span class="dtag tp">aprobación</span></div>
+          <div class="dblock-body"><ul>
+            <li>Definición oficial de términos de negocio (firmada)</li>
+            <li>Aprobación de reglas DQ y umbrales de severidad propuestos</li>
+            <li>Autorización para publicar, deprecar o archivar un dataset</li>
+            <li>Aprobación del Data Contract antes de firmarlo</li>
+            <li>Decisión sobre cambios breaking: versión Major, período de coexistencia</li>
+          </ul></div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-title">Steward → Owner <span class="dtag te">entregable</span></div>
+          <div class="dblock-body"><ul>
+            <li>Draft de glosario con definiciones para revisión</li>
+            <li>Propuesta de reglas DQ con umbrales justificados</li>
+            <li>Draft de Data Contract para aprobación y firma</li>
+            <li>Reporte de incidentes de calidad (causa, impacto, resolución)</li>
+            <li>Alerta de cambio de esquema detectado en fuentes</li>
+          </ul></div>
+        </div>
+      </div>
+
+      <div class="interaction-card" id="int-steward-engineer">
+        <div class="int-header">
+          <span class="chip" style="background:#a855f7;color:#fff;">Data Steward</span>
+          <span class="arrow">⟷</span>
+          <span class="chip" style="background:#22d3ee;color:#0a0d12;">Data Engineer</span>
+        </div>
+        <span class="int-type te">Entregable</span>
+        <p class="int-desc">El Steward especifica qué validar en lenguaje de negocio; el Engineer lo implementa en código. El Steward no codifica reglas — las define con criterios de negocio. El Engineer no decide qué es válido — lo ejecuta con precisión técnica.</p>
+        <div class="dblock">
+          <div class="dblock-title">Steward → Engineer <span class="dtag tp">especificación</span></div>
+          <div class="dblock-body"><ul>
+            <li>Especificación DQ: dimensión, umbral, severidad, acción por regla</li>
+            <li>Diccionario de campos: nombre, tipo, descripción, ejemplo, dominio</li>
+            <li>SLAs a implementar: frescura, completitud, latencia por dataset</li>
+            <li>Criterios de deduplicación y golden record para entidades MDM</li>
+            <li>Data Contract en draft (para codificar en dbt/YAML)</li>
+          </ul></div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-title">Engineer → Steward <span class="dtag te">entregable</span></div>
+          <div class="dblock-body"><ul>
+            <li>DQ Score por dataset en catálogo (con tendencia histórica)</li>
+            <li>Linaje técnico generado (OpenLineage / dbt lineage)</li>
+            <li>Alertas de incidente: falla DQ, volumen anómalo, schema drift</li>
+            <li>Notificación de cambio de esquema detectado en fuente upstream</li>
+            <li>Data Contract implementado y validado en CI/CD</li>
+          </ul></div>
+        </div>
+      </div>
+
+      <div class="interaction-card" id="int-engineer-consumer">
+        <div class="int-header">
+          <span class="chip" style="background:#22d3ee;color:#0a0d12;">Data Engineer</span>
+          <span class="arrow">⟷</span>
+          <span class="chip" style="background:#4ade80;color:#0a0d12;">Data Consumer</span>
+        </div>
+        <span class="int-type te">Entregable</span>
+        <p class="int-desc">El Engineer publica datasets con garantías técnicas. El Consumer los usa y reporta cuando fallan en su contexto. La retroalimentación del Consumer es el insumo principal para evolucionar los contratos y las reglas DQ.</p>
+        <div class="dblock">
+          <div class="dblock-title">Engineer → Consumer <span class="dtag te">entregable</span></div>
+          <div class="dblock-body"><ul>
+            <li>Dataset Gold publicado con DQ Score, SLA y ficha en catálogo</li>
+            <li>Status page con estado en tiempo real del dataset</li>
+            <li>Notificación activa cuando el dataset está degradado o en incidente</li>
+            <li>Runbook de acceso: cómo conectarse, permisos, ejemplos de consulta</li>
+          </ul></div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-title">Consumer → Engineer <span class="dtag tr">responsabilidad</span></div>
+          <div class="dblock-body"><ul>
+            <li>Reporte de incidente de calidad analítica (con contexto de uso)</li>
+            <li>Confirmación de fitness for use en nuevos datasets</li>
+            <li>Requisitos técnicos para nuevos datasets o campos adicionales</li>
+          </ul></div>
+        </div>
+      </div>
+
+      <div class="interaction-card" id="int-ciso-owner">
+        <div class="int-header">
+          <span class="chip" style="background:#f59e0b;color:#0a0d12;">CISO / DPO</span>
+          <span class="arrow">⟷</span>
+          <span class="chip" style="background:#ff6b35;color:#fff;">Data Owner</span>
+        </div>
+        <span class="int-type tc">Control / Clasificación</span>
+        <p class="int-desc">El CISO/DPO impone controles no negociables sobre los datos de cada dominio. El Owner no puede omitirlos pero puede solicitar excepciones justificadas. La clasificación que el CISO asigna determina qué controles técnicos el Engineer debe implementar.</p>
+        <div class="dblock">
+          <div class="dblock-title">CISO/DPO → Owner <span class="dtag tc">control</span></div>
+          <div class="dblock-body"><ul>
+            <li>Clasificación obligatoria de cada dataset del dominio (PII, Confidencial…)</li>
+            <li>Controles mínimos derivados de la clasificación</li>
+            <li>Política de retención: cuánto tiempo puede retener cada tipo</li>
+            <li>Restricciones de PII en entornos non-prod</li>
+            <li>Requisitos de cumplimiento regulatorio del dominio (RNBD, ARCO)</li>
+          </ul></div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-title">Owner → CISO/DPO <span class="dtag te">entregable</span></div>
+          <div class="dblock-body"><ul>
+            <li>Inventario de datos del dominio con propuesta de clasificación</li>
+            <li>Justificación de negocio para solicitudes de excepción</li>
+            <li>Confirmación de implementación de controles en el dominio</li>
+          </ul></div>
+        </div>
+      </div>
+
+      <div class="interaction-card" id="int-ciso-engineer">
+        <div class="int-header">
+          <span class="chip" style="background:#f59e0b;color:#0a0d12;">CISO / DPO</span>
+          <span class="arrow">⟷</span>
+          <span class="chip" style="background:#22d3ee;color:#0a0d12;">Data Engineer</span>
+        </div>
+        <span class="int-type tc">Control técnico</span>
+        <p class="int-desc">El CISO/DPO especifica los controles de seguridad que la plataforma debe implementar. El Engineer los implementa como código auditable (IaC, configuración de IAM, políticas de enmascaramiento) y evidencia el cumplimiento.</p>
+        <div class="dblock">
+          <div class="dblock-title">CISO/DPO → Engineer <span class="dtag tc">especificación</span></div>
+          <div class="dblock-body"><ul>
+            <li>Enmascaramiento dinámico: qué campos, qué roles, qué política</li>
+            <li>Configuración de RLS/CLS por dataset y nivel de clasificación</li>
+            <li>Política de auditoría: eventos a registrar, retención de logs</li>
+            <li>Requisitos de encriptación en reposo (AES-256) y en tránsito (TLS 1.3)</li>
+            <li>Restricciones: qué datos pueden existir en entornos dev/test</li>
+          </ul></div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-title">Engineer → CISO/DPO <span class="dtag te">evidencia</span></div>
+          <div class="dblock-body"><ul>
+            <li>Configuración de IAM documentada en IaC (Terraform/Pulumi)</li>
+            <li>Log de auditoría habilitado, probado y con retención configurada</li>
+            <li>Evidencia de enmascaramiento activo en non-prod</li>
+            <li>Certificado de encriptación en reposo del almacenamiento</li>
+          </ul></div>
+        </div>
+      </div>
+
+      <div class="interaction-card" id="int-steward-consumer">
+        <div class="int-header">
+          <span class="chip" style="background:#a855f7;color:#fff;">Data Steward</span>
+          <span class="arrow">⟷</span>
+          <span class="chip" style="background:#4ade80;color:#0a0d12;">Data Consumer</span>
+        </div>
+        <span class="int-type tr">Responsabilidad compartida</span>
+        <p class="int-desc">El Steward documenta para que el Consumer encuentre y use correctamente los datos. El Consumer valida que las definiciones son adecuadas para sus casos de uso — cerrando el ciclo de calidad analítica.</p>
+        <div class="dblock">
+          <div class="dblock-title">Steward → Consumer <span class="dtag te">entregable</span></div>
+          <div class="dblock-body"><ul>
+            <li>Glosario de negocio con definiciones oficiales y ejemplos</li>
+            <li>Ficha completa del dataset en el catálogo</li>
+            <li>Notificación de cambios de definición o esquema</li>
+            <li>Aclaración de ambigüedades semánticas bajo solicitud</li>
+          </ul></div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-title">Consumer → Steward <span class="dtag tr">responsabilidad</span></div>
+          <div class="dblock-body"><ul>
+            <li>Reporte de incidente de calidad analítica con contexto de uso</li>
+            <li>Feedback sobre definiciones ambiguas o incorrectas en el glosario</li>
+            <li>Validación de fitness for use para nuevos datasets</li>
+            <li>Participación como consumidor en negociación del Data Contract</li>
+          </ul></div>
+        </div>
+      </div>
+
+      <div class="interaction-card" id="int-owner-consumer">
+        <div class="int-header">
+          <span class="chip" style="background:#ff6b35;color:#fff;">Data Owner</span>
+          <span class="arrow">⟷</span>
+          <span class="chip" style="background:#4ade80;color:#0a0d12;">Data Consumer</span>
+        </div>
+        <span class="int-type tc">Autorización de acceso</span>
+        <p class="int-desc">El Owner autoriza el acceso por propósito explícito. El Consumer solicita con justificación. Implementa el principio de mínimo privilegio: el acceso no se otorga por defecto sino por propósito declarado y aprobado.</p>
+        <div class="dblock">
+          <div class="dblock-title">Owner → Consumer <span class="dtag tc">autorización</span></div>
+          <div class="dblock-body"><ul>
+            <li>Aprobación de acceso con rol (read/write), alcance y vigencia</li>
+            <li>Notificación de términos de uso aceptable del dataset</li>
+            <li>Aprobación o rechazo documentado en catálogo con razón</li>
+          </ul></div>
+        </div>
+        <div class="dblock">
+          <div class="dblock-title">Consumer → Owner <span class="dtag te">solicitud</span></div>
+          <div class="dblock-body"><ul>
+            <li>Solicitud de acceso con justificación explícita de propósito</li>
+            <li>Confirmación de comprensión de política de uso aceptable</li>
+          </ul></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const nodes = [
+  { id:'cdo',      x:400, y:75,  label:'CDO',           sub:'',               color:'#ec4899', tc:'#fff' },
+  { id:'council',  x:400, y:210, label:'Gov.',           sub:'Council',        color:'#3d6fff', tc:'#fff' },
+  { id:'owner',    x:155, y:330, label:'Data',           sub:'Owner',          color:'#ff6b35', tc:'#fff' },
+  { id:'steward',  x:300, y:445, label:'Data',           sub:'Steward',        color:'#a855f7', tc:'#fff' },
+  { id:'engineer', x:510, y:445, label:'Data',           sub:'Engineer',       color:'#22d3ee', tc:'#0a0d12' },
+  { id:'consumer', x:645, y:330, label:'Data',           sub:'Consumer',       color:'#4ade80', tc:'#0a0d12' },
+  { id:'ciso',     x:645, y:185, label:'CISO',           sub:'/ DPO',          color:'#f59e0b', tc:'#0a0d12' },
+];
+
+const edges = [
+  { id:'cdo-council',       from:'cdo',      to:'council',  label:['Mandato','estratégico'],   color:'#3d6fff', dash:false, curve:0  },
+  { id:'council-owner',     from:'council',  to:'owner',    label:['Políticas','dominio'],      color:'#3d6fff', dash:false, curve:30 },
+  { id:'owner-steward',     from:'owner',    to:'steward',  label:['Aprobación','definición'],  color:'#a855f7', dash:false, curve:25 },
+  { id:'steward-engineer',  from:'steward',  to:'engineer', label:['Spec DQ','& contrato'],     color:'#4ade80', dash:true,  curve:20 },
+  { id:'engineer-consumer', from:'engineer', to:'consumer', label:['Dataset Gold','& SLA'],     color:'#4ade80', dash:true,  curve:25 },
+  { id:'ciso-owner',        from:'ciso',     to:'owner',    label:['Clasificación','& retención'],color:'#f59e0b',dash:false, curve:35 },
+  { id:'ciso-engineer',     from:'ciso',     to:'engineer', label:['Controles','técnicos'],     color:'#f59e0b', dash:false, curve:30 },
+  { id:'steward-consumer',  from:'steward',  to:'consumer', label:['Glosario','& catálogo'],    color:'#a855f7', dash:true,  curve:40 },
+  { id:'owner-consumer',    from:'owner',    to:'consumer', label:['Autorización','acceso'],    color:'#22d3ee', dash:false, curve:50 },
+];
+
+const svg = document.getElementById('diagram');
+const NS = 'http://www.w3.org/2000/svg';
+
+// Defs / markers
+const defs = document.createElementNS(NS,'defs');
+const cols = ['#3d6fff','#4ade80','#a855f7','#f59e0b','#22d3ee'];
+const ids  = ['blue','green','purple','amber','cyan'];
+cols.forEach((c,i)=>{
+  defs.innerHTML += `<marker id="arr-${ids[i]}" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+    <polygon points="0 0,7 2.5,0 5" fill="${c}"/></marker>`;
+});
+svg.appendChild(defs);
+
+function getNode(id){ return nodes.find(n=>n.id===id); }
+function r(id){ return 34; }
+
+function endpoints(e){
+  const a=getNode(e.from), b=getNode(e.to);
+  const dx=b.x-a.x, dy=b.y-a.y, d=Math.sqrt(dx*dx+dy*dy);
+  const ra=r(a.id), rb=r(b.id);
+  return [a.x+dx/d*ra, a.y+dy/d*ra, b.x-dx/d*rb, b.y-dy/d*rb];
+}
+
+function qpath(x1,y1,x2,y2,curve){
+  if(curve===0) return `M${x1} ${y1} L${x2} ${y2}`;
+  const mx=(x1+x2)/2, my=(y1+y2)/2;
+  const dx=x2-x1, dy=y2-y1, len=Math.sqrt(dx*dx+dy*dy);
+  const cx=mx-dy/len*curve, cy=my+dx/len*curve;
+  return `M${x1} ${y1} Q${cx} ${cy} ${x2} ${y2}`;
+}
+
+function qmid(x1,y1,x2,y2,curve){
+  if(curve===0) return [(x1+x2)/2,(y1+y2)/2];
+  const mx=(x1+x2)/2, my=(y1+y2)/2;
+  const dx=x2-x1, dy=y2-y1, len=Math.sqrt(dx*dx+dy*dy);
+  const cx=mx-dy/len*curve, cy=my+dx/len*curve;
+  return [(mx+cx/2*0+x1*0.25+x2*0.25+cx*0.5), (my+cy/2*0+y1*0.25+y2*0.25+cy*0.5)];
+}
+
+function markerUrl(c){
+  const map={'#3d6fff':'blue','#4ade80':'green','#a855f7':'purple','#f59e0b':'amber','#22d3ee':'cyan'};
+  return `url(#arr-${map[c]||'blue'})`;
+}
+
+// Draw edges
+edges.forEach(e=>{
+  const [x1,y1,x2,y2]=endpoints(e);
+  const d=qpath(x1,y1,x2,y2,e.curve);
+  const [mx,my]=qmid(x1,y1,x2,y2,e.curve);
+  const g=document.createElementNS(NS,'g');
+  g.classList.add('edge-group'); g.dataset.id=e.id;
+
+  // hit area
+  const hit=document.createElementNS(NS,'path');
+  hit.setAttribute('d',d); hit.setAttribute('fill','none');
+  hit.setAttribute('stroke','transparent'); hit.setAttribute('stroke-width','16');
+  g.appendChild(hit);
+
+  // visible path
+  const p=document.createElementNS(NS,'path');
+  p.setAttribute('d',d); p.setAttribute('fill','none');
+  p.setAttribute('stroke',e.color);
+  p.setAttribute('stroke-width', e.dash?'1.5':'2');
+  p.setAttribute('stroke-opacity','0.6');
+  if(e.dash) p.setAttribute('stroke-dasharray','5 4');
+  p.setAttribute('marker-end',markerUrl(e.color));
+  p.classList.add('edge-path');
+  g.appendChild(p);
+
+  // label bg
+  const bg=document.createElementNS(NS,'rect');
+  bg.setAttribute('x',mx-34); bg.setAttribute('y',my-17);
+  bg.setAttribute('width','68'); bg.setAttribute('height','34');
+  bg.setAttribute('rx','3'); bg.setAttribute('fill','#0a0d12');
+  bg.setAttribute('stroke',e.color); bg.setAttribute('stroke-width','0.8');
+  bg.setAttribute('stroke-opacity','0.4'); bg.classList.add('elb');
+  g.appendChild(bg);
+
+  e.label.forEach((t,i)=>{
+    const txt=document.createElementNS(NS,'text');
+    txt.setAttribute('x',mx); txt.setAttribute('y',my-4+(i*12));
+    txt.setAttribute('text-anchor','middle');
+    txt.setAttribute('font-size','8.5'); txt.setAttribute('fill',e.color);
+    txt.classList.add('elt'); txt.textContent=t;
+    g.appendChild(txt);
+  });
+
+  g.addEventListener('click',()=>selectEdge(e.id));
+  svg.appendChild(g);
+});
+
+// Draw nodes
+nodes.forEach(n=>{
+  const g=document.createElementNS(NS,'g');
+  g.classList.add('node-group'); g.dataset.id=n.id;
+  const rv=r(n.id);
+
+  const ring=document.createElementNS(NS,'circle');
+  ring.setAttribute('cx',n.x); ring.setAttribute('cy',n.y); ring.setAttribute('r',rv+7);
+  ring.setAttribute('fill','none'); ring.setAttribute('stroke',n.color);
+  ring.setAttribute('stroke-width','1.5'); ring.setAttribute('stroke-opacity','0.4');
+  ring.classList.add('node-ring'); g.appendChild(ring);
+
+  const c1=document.createElementNS(NS,'circle');
+  c1.setAttribute('cx',n.x); c1.setAttribute('cy',n.y); c1.setAttribute('r',rv);
+  c1.setAttribute('fill',n.color); c1.setAttribute('fill-opacity','0.12');
+  c1.setAttribute('stroke',n.color); c1.setAttribute('stroke-width','1.5');
+  g.appendChild(c1);
+
+  const c2=document.createElementNS(NS,'circle');
+  c2.setAttribute('cx',n.x); c2.setAttribute('cy',n.y); c2.setAttribute('r',rv-10);
+  c2.setAttribute('fill',n.color); c2.setAttribute('fill-opacity','0.18');
+  c2.setAttribute('stroke','none'); g.appendChild(c2);
+
+  const hasSub = n.sub !== '';
+  const dy1 = hasSub ? '-6' : '4';
+
+  const t1=document.createElementNS(NS,'text');
+  t1.setAttribute('x',n.x); t1.setAttribute('y',n.y);
+  t1.setAttribute('text-anchor','middle');
+  t1.setAttribute('dominant-baseline','middle');
+  t1.setAttribute('font-family','IBM Plex Mono,monospace');
+  t1.setAttribute('font-size','9.5'); t1.setAttribute('font-weight','600');
+  t1.setAttribute('fill',n.color);
+  t1.innerHTML = hasSub
+    ? `<tspan x="${n.x}" dy="${dy1}">${n.label}</tspan><tspan x="${n.x}" dy="13">${n.sub}</tspan>`
+    : `<tspan x="${n.x}" dy="4">${n.label}</tspan>`;
+  g.appendChild(t1);
+
+  g.addEventListener('click',()=>selectNode(n.id));
+  svg.appendChild(g);
+});
+
+// Interaction
+const descs={
+  cdo:'Chief Data Officer — Sponsor ejecutivo con autoridad real',
+  council:'Comité federado cross-dominio — Toma decisiones de gobernanza',
+  owner:'Responsable de negocio — Decide significado, uso y acceso',
+  steward:'Operador de gobernanza diario — Documenta y coordina',
+  engineer:'Implementador técnico — Construye pipelines y controles',
+  consumer:'Usuario final — Valida fitness for use y reporta incidentes',
+  ciso:'Custodio de seguridad — Define controles y cumplimiento',
+};
+
+function clearAll(){
+  document.querySelectorAll('.node-group').forEach(g=>g.classList.remove('selected-node'));
+  document.querySelectorAll('.edge-group').forEach(g=>g.classList.remove('selected-edge'));
+  document.querySelectorAll('.role-card,.interaction-card').forEach(c=>c.classList.remove('active'));
+  document.getElementById('default-state').style.display='flex';
+}
+
+function selectNode(id){
+  clearAll();
+  const n=getNode(id);
+  document.getElementById('panel-title').textContent=n.label+(n.sub?' '+n.sub:'');
+  document.getElementById('panel-desc').textContent=descs[id]||'';
+  document.getElementById('default-state').style.display='none';
+  const c=document.getElementById('role-'+id);
+  if(c) c.classList.add('active');
+  document.querySelector(`.node-group[data-id="${id}"]`).classList.add('selected-node');
+}
+
+function selectEdge(id){
+  clearAll();
+  const e=edges.find(x=>x.id===id);
+  const a=getNode(e.from), b=getNode(e.to);
+  document.getElementById('panel-title').textContent=
+    `${a.label}${a.sub?' '+a.sub:''} ↔ ${b.label}${b.sub?' '+b.sub:''}`;
+  document.getElementById('panel-desc').textContent='Políticas, entregables y responsabilidades de esta interacción';
+  document.getElementById('default-state').style.display='none';
+  const c=document.getElementById('int-'+id);
+  if(c) c.classList.add('active');
+  document.querySelector(`.edge-group[data-id="${id}"]`).classList.add('selected-edge');
+}
+</script>
+</body>
+</html>
