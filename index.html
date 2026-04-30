@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>REPOX — Gobernanza SDM</title>
+<title>REPOX-Gov — Borrador conceptual · Gobernanza SDM</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
 
@@ -123,6 +123,7 @@ body {
 .leg:nth-child(4) { animation-delay: .55s; }
 .leg:nth-child(5) { animation-delay: .7s; }
 .leg:nth-child(6) { animation-delay: .85s; }
+.leg:nth-child(7) { animation-delay: 1s; }
 @keyframes leg-in {
   from { opacity:0; transform:translateX(-6px); }
   to   { opacity:1; transform:translateX(0); }
@@ -166,6 +167,7 @@ body {
   50%       { opacity: 0.5; transform: translateX(3px); }
 }
 
+
 /* SVG */
 .ng   { cursor:pointer; }
 .eg   { cursor:pointer; }
@@ -189,10 +191,10 @@ body {
 
 <div class="hdr">
   <div class="hdr-left">
-    <div class="rpill">REPOX</div>
+    <div class="rpill">REPOX-GOV</div>
     <div>
-      <div class="htitle">REPOX como plataforma de Gobernanza de Datos · SDM</div>
-      <div class="hsub">Propuesta: REPOX materializa y ejecuta los controles de gobernanza de la entidad sobre Azure</div>
+      <div class="htitle">REPOX-Gov · Plataforma de Gobernanza de Datos · SDM</div>
+      <div class="hsub">Borrador conceptual — dos caminos posibles: reestructurar la plataforma REPOX actual, o tomar su arquitectura como base para construir la plataforma de gobernanza institucional sobre Azure</div>
     </div>
   </div>
 </div>
@@ -205,12 +207,13 @@ body {
       <span><strong class="arr" style="font-size:16px;color:#0078d4">&rarr;</strong> Clic en <strong>arista</strong> &rarr; flujo y entregables</span>
     </div>
     <div class="legend">
-      <div class="leg"><div class="ll" style="background:#4a5acd"></div>Política / mandato</div>
-      <div class="leg"><div class="ll" style="background:#43a047;height:0;border-top:2px dashed #43a047"></div>Entregable / copia</div>
-      <div class="leg"><div class="ll" style="background:#9c27b0"></div>Resp. compartida</div>
-      <div class="leg"><div class="ll" style="background:#fb8c00"></div>Control / aprobación</div>
-      <div class="leg"><div class="ll" style="background:#0078d4;height:0;border-top:2px dashed #0078d4"></div>Flujo hacia REPOX</div>
-      <div class="leg"><div class="ll" style="background:#00bcd4"></div>Consulta / explotación</div>
+      <div class="leg"><div class="ll" style="background:#4a5acd"></div>Mandato / política (CDO, Council)</div>
+      <div class="leg"><div class="ll" style="background:#f4511e"></div>Autorización del Owner</div>
+      <div class="leg"><div class="ll" style="background:#fb8c00"></div>Control de seguridad (CISO/DPO)</div>
+      <div class="leg"><div class="ll" style="background:#9c27b0"></div>Operación de gobernanza (Steward)</div>
+      <div class="leg"><div class="ll" style="background:#00bcd4;height:0;border-top:2px dashed #00bcd4"></div>Construcción técnica (Engineer)</div>
+      <div class="leg"><div class="ll" style="background:#0078d4;height:0;border-top:2px dashed #0078d4"></div>Réplica de datos (Fuentes → Bronze)</div>
+      <div class="leg"><div class="ll" style="background:#00bcd4"></div>Consulta / explotación (Consumer)</div>
     </div>
   </div>
 
@@ -223,58 +226,58 @@ body {
     <div class="pbody">
       <div class="def" id="def">
         <div class="def-ico">⬡</div>
-        <div class="def-txt">REPOX es la plataforma que materializa y ejecuta los controles de gobernanza. Selecciona un nodo o arista para explorar cómo cada rol interactúa con REPOX.</div>
+        <div class="def-txt">REPOX-Gov es la propuesta de materializar la gobernanza de datos sobre la base de REPOX — ya sea reestructurando la plataforma actual o tomando su arquitectura como base para una nueva implementación. Selecciona un nodo o arista para explorar cómo cada rol interactuaría con la plataforma.</div>
       </div>
 
       <!-- ══ NODOS ══ -->
       <div class="card" id="n-cdo">
-        <div class="badge" style="background:#e91e8c;color:#fff"><span class="dot" style="background:#fff"></span>CDO</div>
-        <div class="desc">Sponsor ejecutivo que aprueba REPOX como la <strong>plataforma institucional que materializa la gobernanza de datos</strong> de la SDM. Sin su respaldo, los controles de gobernanza no tienen mandato ni presupuesto para ejecutarse.</div>
+        <div class="badge" style="background:#e91e8c;color:#fff"><span class="dot" style="background:#fff"></span>CDO · Chief Data Officer</div>
+        <div class="desc">Sponsor ejecutivo que aprueba REPOX-Gov como la <strong>plataforma institucional que materializa la gobernanza de datos</strong> de la SDM. Sin su respaldo, los controles de gobernanza no tienen mandato ni presupuesto para ejecutarse.</div>
         <div class="sl">Responsabilidades clave</div>
         <ul class="lst">
-          <li>Aprobar REPOX como plataforma oficial de gobernanza y analítica de la SDM</li>
-          <li>Asegurar que cada dominio tenga Data Owner designado, con obligaciones concretas en REPOX</li>
-          <li>Revisar trimestralmente los KPIs de ejecución de controles de gobernanza en REPOX</li>
-          <li>Resolver escalaciones que el Council no puede resolver</li>
+          <li>Aprobar REPOX-Gov como plataforma oficial de gobernanza y analítica de la SDM</li>
+          <li>Asegurar que cada dominio tenga Data Owner designado, con obligaciones concretas en REPOX-Gov</li>
+          <li>Revisar trimestralmente los KPIs de ejecución de controles de gobernanza en REPOX-Gov</li>
+          <li>Aprobar excepciones formales a las políticas de gobernanza cuando un caso supera el ámbito del Council</li>
         </ul>
       </div>
 
       <div class="card" id="n-council">
         <div class="badge" style="background:#4a5acd;color:#fff"><span class="dot" style="background:#fff"></span>Gov. Council</div>
-        <div class="desc">Comité federado que define las políticas que REPOX debe ejecutar como plataforma de gobernanza. <strong>REPOX no puede controlar lo que el Council no ha definido</strong> — cada política aprobada se traduce en un control técnico implementado en la plataforma.</div>
-        <div class="sl">Cómo el Council activa controles en REPOX</div>
+        <div class="desc">Comité federado que define las políticas que REPOX-Gov debe ejecutar como plataforma de gobernanza. <strong>REPOX-Gov no puede controlar lo que el Council no ha definido</strong> — cada política aprobada se traduce en un control técnico implementado en la plataforma.</div>
+        <div class="sl">Cómo el Council activa controles en REPOX-Gov</div>
         <ul class="lst">
-          <li>Aprueba políticas de ingesta, acceso y retención → REPOX las ejecuta vía IAM, ADF y Azure Purview</li>
-          <li>Define qué dominios son fuentes oficiales → REPOX los certifica en el catálogo</li>
-          <li>Aprueba Data Contracts cross-dominio o con PII → REPOX bloquea ingestas sin contrato firmado</li>
-          <li>Audita semestralmente completitud del catálogo → REPOX expone métricas en Azure Purview</li>
-          <li>Resuelve conflictos de definición → REPOX implementa la resolución en el glosario</li>
+          <li>Aprueba políticas de ingesta, acceso y retención → el <strong>Policy Engine</strong> las ejecuta vía IAM, ADF y reglas SQL, consultando Purview</li>
+          <li>Define qué dominios son fuentes oficiales → REPOX-Gov los certifica en el catálogo de Purview</li>
+          <li>Aprueba Data Contracts cross-dominio o con PII → el <strong>Policy Engine</strong> bloquea ingestas sin contrato firmado</li>
+          <li>Audita semestralmente completitud del catálogo → REPOX-Gov expone métricas en Azure Purview</li>
+          <li>Resuelve conflictos de definición → REPOX-Gov implementa la resolución en el glosario</li>
         </ul>
       </div>
 
       <div class="card" id="n-ciso">
         <div class="badge" style="background:#fb8c00;color:#060a0f"><span class="dot" style="background:#060a0f"></span>CISO / DPO</div>
-        <div class="desc">Define los controles de seguridad y privacidad que <strong>REPOX ejecuta técnicamente</strong>. Cada control aprobado por el CISO/DPO se implementa como una regla activa en la plataforma: enmascaramiento, auditoría, retención y acceso. Datos de usuarios SDM sujetos a Ley 1581.</div>
-        <div class="sl">Controles de gobernanza ejecutados por REPOX</div>
+        <div class="desc">Define los controles de seguridad y privacidad que <strong>REPOX-Gov ejecuta técnicamente</strong>. Cada control aprobado por el CISO/DPO se implementa como una regla activa en la plataforma: enmascaramiento, auditoría, retención y acceso. Datos de usuarios SDM sujetos a Ley 1581.</div>
+        <div class="sl">Controles de gobernanza ejecutados por REPOX-Gov</div>
         <ul class="lst">
-          <li><strong>Control de PII:</strong> REPOX bloquea la ingesta de datos sensibles sin aprobación previa del CISO/DPO</li>
-          <li><strong>Enmascaramiento dinámico:</strong> Synapse/Databricks aplican la política aprobada — el Consumer nunca ve el dato crudo si no tiene autorización</li>
+          <li><strong>Control de PII:</strong> el <strong>Policy Engine</strong> bloquea la ingesta de datos sensibles sin aprobación previa del CISO/DPO (consulta tags de Purview)</li>
+          <li><strong>Enmascaramiento dinámico:</strong> Synapse/Databricks aplican la política aprobada vía reglas SQL del Policy Engine — el Consumer nunca ve el dato crudo si no tiene autorización</li>
           <li><strong>Auditoría continua:</strong> Azure Monitor registra y retiene cada acceso a datos Confidencial/Sensible</li>
-          <li><strong>Cumplimiento Ley 1581:</strong> REPOX anonimiza PII de usuarios SDM en Silver y aplica retención automática</li>
-          <li><strong>Control de exposición:</strong> REPOX impide publicar en Power BI / APIs datos que el CISO/DPO no ha aprobado</li>
+          <li><strong>Cumplimiento Ley 1581:</strong> REPOX-Gov anonimiza PII de usuarios SDM en Silver y aplica retención automática</li>
+          <li><strong>Control de exposición:</strong> el <strong>Policy Engine</strong> impide publicar en Power BI / APIs datos que el CISO/DPO no ha aprobado</li>
         </ul>
       </div>
 
       <div class="card" id="n-owner">
         <div class="badge" style="background:#f4511e;color:#fff"><span class="dot" style="background:#fff"></span>Data Owner</div>
-        <div class="desc">La dependencia que administra el sistema fuente. <strong>REPOX materializa la responsabilidad del Data Owner</strong> obligando técnicamente a que ningún dato ingrese a la plataforma sin su autorización explícita, y que ningún campo clasificado como PII sea accesible sin su aprobación en Purview.</div>
+        <div class="desc">La dependencia que administra el sistema fuente. <strong>REPOX-Gov materializa la responsabilidad del Data Owner</strong> obligando técnicamente a que ningún dato ingrese a la plataforma sin su autorización explícita, y que ningún campo clasificado como PII sea accesible sin su aprobación en Purview.</div>
         <div class="sl">Ejemplos de Data Owners en la SDM</div>
         <ul class="lst">
           <li><strong>OSV — Oficina de Seguridad Vial:</strong> datos de siniestros viales</li>
           <li><strong>DIM — Dirección de Inteligencia para la Movilidad:</strong> sistema de bicicletas compartidas, estudios y monitoreo de movilidad</li>
           <li><strong>SCC — Subsecretaría de Servicios a la Ciudadanía:</strong> comparendos, Registro Distrital Automotor (RDA)</li>
         </ul>
-        <div class="sl">Cómo REPOX ejecuta los controles del Data Owner</div>
+        <div class="sl">Cómo REPOX-Gov ejecuta los controles del Data Owner</div>
         <ul class="lst">
           <li>Bloquea la ingesta si no existe Data Contract firmado por el Owner</li>
           <li>Expone el workflow de aprobación de accesos en Azure Purview — el Owner aprueba o rechaza cada solicitud</li>
@@ -291,25 +294,25 @@ body {
 
       <div class="card" id="n-steward">
         <div class="badge" style="background:#9c27b0;color:#fff"><span class="dot" style="background:#fff"></span>Data Steward</div>
-        <div class="desc">Opera la gobernanza diaria dentro de Azure Purview. <strong>REPOX expone los instrumentos que el Steward opera:</strong> el catálogo donde mantiene el glosario, las reglas DQ que los pipelines ejecutan, y el linaje que hace trazable cada dato desde su fuente hasta el tablero Power BI.</div>
-        <div class="sl">Controles de gobernanza que el Steward activa en REPOX</div>
+        <div class="desc">Opera la gobernanza diaria dentro de Azure Purview. <strong>REPOX-Gov expone los instrumentos que el Steward opera:</strong> el catálogo donde mantiene el glosario, las reglas DQ que los pipelines ejecutan, y el linaje que hace trazable cada dato desde su fuente hasta el tablero Power BI.</div>
+        <div class="sl">Controles de gobernanza que el Steward activa en REPOX-Gov</div>
         <ul class="lst">
-          <li><strong>Glosario en Purview:</strong> REPOX vincula cada campo del catálogo al término oficial — garantiza vocabulario único en toda la entidad</li>
-          <li><strong>Reglas DQ:</strong> el Steward las especifica → REPOX las ejecuta en cada corrida de pipeline y publica el DQ Score en el catálogo</li>
-          <li><strong>Linaje de negocio:</strong> REPOX lo construye automáticamente; el Steward valida que refleja la realidad del proceso</li>
-          <li><strong>Data Contracts:</strong> REPOX bloquea el acceso a datos sin contrato registrado en Purview</li>
-          <li><strong>Gestión de incidentes:</strong> REPOX detecta y alerta; el Steward coordina la resolución y documenta la causa raíz</li>
+          <li><strong>Glosario en Purview:</strong> REPOX-Gov vincula cada campo del catálogo al término oficial — garantiza vocabulario único en toda la entidad</li>
+          <li><strong>Reglas DQ:</strong> el Steward las especifica → el <strong>Policy Engine</strong> las ejecuta en cada corrida de pipeline (Databricks/Great Expectations) y publica el DQ Score en el catálogo</li>
+          <li><strong>Linaje de negocio:</strong> REPOX-Gov lo construye automáticamente; el Steward valida que refleja la realidad del proceso</li>
+          <li><strong>Data Contracts:</strong> el <strong>Policy Engine</strong> bloquea el acceso a datos sin contrato registrado en Purview</li>
+          <li><strong>Gestión de incidentes:</strong> REPOX-Gov detecta y alerta; el Steward coordina la resolución y documenta la causa raíz</li>
         </ul>
       </div>
 
       <div class="card" id="n-eng">
         <div class="badge" style="background:#00bcd4;color:#060a0f"><span class="dot" style="background:#060a0f"></span>Data Engineer</div>
         <div class="desc"><strong>Construye y opera la plataforma que ejecuta la gobernanza.</strong> El Engineer no solo mueve datos — implementa técnicamente cada control definido por el Council, el CISO/DPO y el Steward: acceso, calidad, linaje, seguridad y observabilidad.</div>
-        <div class="sl">Controles de gobernanza implementados por el Engineer en REPOX</div>
+        <div class="sl">Controles de gobernanza implementados por el Engineer en REPOX-Gov</div>
         <ul class="lst">
-          <li><strong>Control de ingesta:</strong> ADF/Databricks bloquean la carga si no existe Data Contract aprobado</li>
-          <li><strong>Calidad del dato:</strong> tests DQ en cada pipeline; resultado publicado como DQ Score en el catálogo</li>
-          <li><strong>Seguridad y acceso:</strong> IAM (Azure AD), RLS/CLS y enmascaramiento dinámico aplicados según política del CISO/DPO</li>
+          <li><strong>Control de ingesta:</strong> el Engineer construye el <strong>Policy Engine</strong> (ADF + Functions) que consulta Purview y bloquea la carga si no existe Data Contract aprobado</li>
+          <li><strong>Calidad del dato:</strong> tests DQ ejecutados por el Policy Engine en Databricks (Great Expectations / Deequ); DQ Score publicado en el catálogo</li>
+          <li><strong>Seguridad y acceso:</strong> IAM (Azure AD), RLS/CLS y enmascaramiento dinámico implementados como reglas SQL del Policy Engine, según política del CISO/DPO</li>
           <li><strong>Linaje técnico:</strong> cada transformación Bronze→Silver→Gold registrada en Purview vía OpenLineage</li>
           <li><strong>Observabilidad:</strong> Azure Monitor detecta freshness, volume anomalies y schema drift — alertas al Owner</li>
         </ul>
@@ -323,10 +326,10 @@ body {
 
       <div class="card" id="n-consumer">
         <div class="badge" style="background:#43a047;color:#060a0f"><span class="dot" style="background:#060a0f"></span>Data Consumer</div>
-        <div class="desc">Analistas, científicos de datos y gestores de la SDM. <strong>El Consumer solo puede acceder a lo que la gobernanza ha certificado</strong> — REPOX aplica automáticamente los controles de acceso, calidad y privacidad antes de exponer cualquier dato.</div>
-        <div class="sl">Cómo REPOX controla el acceso del Consumer</div>
+        <div class="desc">Analistas, científicos de datos y gestores de la SDM. <strong>El Consumer solo puede acceder a lo que la gobernanza ha certificado</strong> — REPOX-Gov aplica automáticamente los controles de acceso, calidad y privacidad antes de exponer cualquier dato.</div>
+        <div class="sl">Cómo REPOX-Gov controla el acceso del Consumer</div>
         <ul class="lst">
-          <li><strong>Solo datos certificados:</strong> Power BI y Synapse exponen únicamente capa Gold — Bronze y Silver inaccesibles sin aprobación explícita</li>
+          <li><strong>Solo datos certificados:</strong> Power BI y Synapse consumen únicamente Gold + capa Semántica — Bronze y Silver inaccesibles sin aprobación explícita</li>
           <li><strong>Acceso controlado por rol:</strong> Azure AD verifica permisos antes de cada consulta — sin autorización del Data Owner, no hay acceso</li>
           <li><strong>PII protegido:</strong> enmascaramiento dinámico activo — el Consumer sin autorización CISO/DPO nunca ve el dato sensible real</li>
           <li><strong>Trazabilidad:</strong> cada consulta queda registrada en el log de auditoría de Azure Monitor</li>
@@ -341,46 +344,68 @@ body {
 
       <div class="card" id="n-src">
         <div class="badge" style="background:#37474f;color:#fff"><span class="dot" style="background:#fff"></span>Sistemas Fuente SDM</div>
-        <div class="desc">Sistemas operacionales administrados por las <strong>dependencias de la SDM que actúan como Data Owners</strong>. Cada dependencia es responsable de su sistema en origen. REPOX obtiene una copia analítica — el sistema operacional sigue siendo la fuente oficial del dato.</div>
+        <div class="desc">Sistemas operacionales administrados por las <strong>dependencias de la SDM que actúan como Data Owners</strong>. Cada dependencia es responsable de su sistema en origen. REPOX-Gov obtiene una copia analítica — el sistema operacional sigue siendo la fuente oficial del dato.</div>
         <div class="sl">Sistemas fuente por Data Owner (dependencia SDM)</div>
         <ul class="lst">
           <li><strong>OSV — Oficina de Seguridad Vial:</strong> sistema de siniestros viales — registros de accidentes, georeferenciación, actores involucrados</li>
           <li><strong>DIM — Dirección de Inteligencia para la Movilidad:</strong> sistema de bicicletas compartidas (trips, disponibilidad, estaciones), estudios de movilidad, monitoreo de indicadores</li>
           <li><strong>SCC — Subsecretaría de Servicios a la Ciudadanía:</strong> sistema de comparendos (infracciones de tránsito), Registro Distrital Automotor — RDA (vehículos, propietarios, trámites)</li>
         </ul>
-        <div class="sl">Principio de réplica</div>
-        <ul class="lst">
-          <li>REPOX solo lee desde los sistemas fuente — nunca modifica ni escribe en ellos</li>
-          <li>Ante discrepancia, el sistema fuente (administrado por el Data Owner) es la fuente de verdad</li>
-          <li>Toda ingesta requiere Data Contract firmado por la dependencia Data Owner del sistema</li>
-        </ul>
       </div>
 
       <div class="card" id="n-repox">
-        <div class="badge" style="background:#0078d4;color:#fff"><span class="dot" style="background:#fff"></span>REPOX</div>
-        <div class="desc"><strong>REPOX es la plataforma que materializa y ejecuta los controles de gobernanza de datos de la SDM.</strong> No es solo un repositorio analítico — es el punto donde las políticas del Council, las reglas del CISO/DPO, las responsabilidades del Data Owner y los estándares del Steward se vuelven controles técnicos activos y auditables.</div>
-        <div class="sl">Controles de gobernanza que REPOX ejecuta activamente</div>
+        <div class="badge" style="background:#0078d4;color:#fff"><span class="dot" style="background:#fff"></span>REPOX-GOV</div>
+        <div class="desc"><strong>REPOX-Gov es la propuesta de materializar la gobernanza de datos de la SDM sobre la base de la plataforma REPOX.</strong> Existen dos caminos posibles para llegar al mismo resultado: <strong>(A)</strong> reestructurar la plataforma REPOX existente para que ejecute los controles de gobernanza, o <strong>(B)</strong> tomar la arquitectura de REPOX como base de referencia y construir la plataforma de gobernanza sobre ese diseño. En cualquiera de los dos casos, las políticas del Council, las reglas del CISO/DPO, las responsabilidades del Data Owner y los estándares del Steward se vuelven controles técnicos activos y auditables.</div>
+        <div class="sl">Controles de gobernanza que REPOX-Gov ejecuta activamente</div>
         <ul class="lst">
-          <li><strong>Control de ingesta:</strong> ningún dato entra sin Data Contract firmado por el Data Owner</li>
-          <li><strong>Control de calidad:</strong> DQ Score calculado en cada pipeline y publicado en el catálogo</li>
-          <li><strong>Control de acceso:</strong> IAM + RLS/CLS + enmascaramiento dinámico aplicados por rol y dataset</li>
+          <li><strong>Control de ingesta:</strong> ningún dato entra sin Data Contract firmado por el Data Owner — <em>aplicado por el Policy Engine en ADF</em></li>
+          <li><strong>Control de calidad:</strong> DQ Score calculado en cada pipeline (Policy Engine en Databricks) y publicado en el catálogo</li>
+          <li><strong>Control de acceso:</strong> IAM + RLS/CLS + enmascaramiento dinámico aplicados por rol y dataset (reglas SQL del Policy Engine)</li>
           <li><strong>Control de privacidad:</strong> PII anonimizado en Silver, auditable en Azure Monitor</li>
           <li><strong>Control de linaje:</strong> trazabilidad completa fuente → Bronze → Gold → tablero Power BI</li>
-          <li><strong>Control de catálogo:</strong> Azure Purview bloquea acceso a datos sin ficha completa</li>
+          <li><strong>Control de catálogo:</strong> Purview mantiene la ficha; el Policy Engine impide acceso a datasets sin ficha completa</li>
         </ul>
-        <div class="sl">Componentes Azure que ejecutan los controles</div>
+        <div class="sl">Componentes que ejecutan los controles</div>
         <div class="tech-row">
           <span class="tch">ADLS Gen2</span><span class="tch">Azure Purview</span>
+          <span class="tch" style="background:#1565c020;border-color:#1565c0;color:#1565c0">Policy Engine (ADF + Functions)</span>
           <span class="tch">Synapse Analytics</span><span class="tch">Databricks</span>
-          <span class="tch">Power BI</span><span class="tch">Azure Data Factory</span>
+          <span class="tch">Power BI</span>
           <span class="tch">Azure Monitor</span><span class="tch">Azure Active Directory</span>
         </div>
         <div class="sl">Capas de la plataforma</div>
         <ul class="lst">
           <li><strong style="color:#37474f">Bronze:</strong> copia raw inmutable — fuente de verdad para reprocesamiento</li>
           <li><strong style="color:#00838f">Silver:</strong> dato limpio, DQ aplicado, PII anonimizado, linaje técnico</li>
-          <li><strong style="color:#0078d4">Gold:</strong> KPIs y datasets certificados — única capa accesible al Consumer</li>
+          <li><strong style="color:#0078d4">Gold:</strong> KPIs y datasets certificados — capa accesible al Consumer</li>
+          <li><strong style="color:#7b1fa2">Semántica / Serving:</strong> modelo de negocio compartido para BI y ML — métricas centralizadas (Power BI semantic model / vistas Synapse) que evitan que cada tablero defina los KPIs de forma distinta</li>
           <li><strong style="color:#fb8c00">Catálogo (Purview):</strong> inventario, glosario, linaje, Data Contracts y clasificación PII</li>
+        </ul>
+      </div>
+
+      <div class="card" id="n-policy">
+        <div class="badge" style="background:#1565c0;color:#fff"><span class="dot" style="background:#fff"></span>Policy Engine / Gate</div>
+        <div class="desc"><strong>Componente que ejecuta los bloqueos y validaciones que las políticas de gobernanza exigen.</strong> Aclaración importante: <strong>Azure Purview por sí solo no bloquea nada</strong> — solo cataloga, etiqueta y mantiene metadatos. El Policy Engine es la pieza que <em>consulta</em> esos metadatos y los traduce en controles activos sobre los pipelines y los accesos. Sin este componente, las políticas de Purview son metadatos sin efecto operativo.</div>
+        <div class="sl">Implementación técnica</div>
+        <ul class="lst">
+          <li><strong>Azure Functions:</strong> lógica del Gate — consulta Purview API por Data Contract vigente, clasificación PII y owner asignado</li>
+          <li><strong>Azure Data Factory:</strong> actividad pre-ingesta que invoca el Gate antes de cargar a Bronze; aborta el pipeline si la decisión es negativa</li>
+          <li><strong>Databricks notebooks:</strong> validaciones DQ que abortan la ejecución si el dataset no cumple el contrato (Great Expectations / Deequ)</li>
+          <li><strong>Synapse / Databricks SQL:</strong> RLS, CLS y enmascaramiento dinámico aplicados como vistas o políticas SQL</li>
+          <li><strong>Reglas como código:</strong> versionadas en repositorio (Git), revisadas vía PR — auditables y reproducibles</li>
+        </ul>
+        <div class="sl">Decisiones que toma en tiempo de ejecución</div>
+        <ul class="lst">
+          <li>Permitir o rechazar la ingesta según existencia y vigencia del Data Contract</li>
+          <li>Permitir o rechazar la lectura según rol del usuario y clasificación del campo</li>
+          <li>Aplicar máscara PII en línea según política CISO/DPO y rol del solicitante</li>
+          <li>Reportar cada decisión al log de auditoría en Azure Monitor</li>
+        </ul>
+        <div class="sl">Por qué diferenciarlo del catálogo</div>
+        <ul class="lst">
+          <li>Purview cataloga, no bloquea — el control efectivo lo hace el Policy Engine</li>
+          <li>Aísla la lógica de gobernanza del código de los pipelines de negocio</li>
+          <li>Permite cambiar políticas sin redeployar pipelines, y auditar quién aprobó cada regla</li>
         </ul>
       </div>
 
@@ -389,10 +414,10 @@ body {
         <div class="int-hd">
           <span class="chip" style="background:#37474f;color:#fff">Fuentes SDM</span>
           <span class="arric">→</span>
-          <span class="chip" style="background:#0078d4;color:#fff">REPOX · Bronze</span>
+          <span class="chip" style="background:#0078d4;color:#fff">REPOX-Gov · Bronze</span>
         </div>
         <span class="itype tx">Ingesta / Réplica analítica</span>
-        <p class="int-desc">El Data Engineer extrae una copia desde los sistemas fuente hacia Bronze (ADLS Gen2). La fuente oficial permanece intacta — REPOX opera siempre sobre réplicas.</p>
+        <p class="int-desc">El Data Engineer extrae una copia desde los sistemas fuente hacia Bronze (ADLS Gen2). La fuente oficial permanece intacta — REPOX-Gov opera siempre sobre réplicas.</p>
         <div class="db">
           <div class="dbt">Flujo de ingesta <span class="dtag tx">entregable</span></div>
           <div class="dbb"><ul>
@@ -455,7 +480,7 @@ body {
           <span class="chip" style="background:#00bcd4;color:#060a0f">Data Engineer</span>
         </div>
         <span class="itype tp">Autorización de ingesta</span>
-        <p class="int-desc">La dependencia que administra el sistema fuente (Data Owner) autoriza la réplica hacia REPOX. El Engineer no puede iniciar una ingesta sin el Data Contract firmado por esa dependencia. Ante cambios en el sistema fuente, el Owner notifica con anticipación para evitar roturas del pipeline.</p>
+        <p class="int-desc">La dependencia que administra el sistema fuente (Data Owner) autoriza la réplica hacia REPOX-Gov. El Engineer no puede iniciar una ingesta sin el Data Contract firmado por esa dependencia. Ante cambios en el sistema fuente, el Owner notifica con anticipación para evitar roturas del pipeline.</p>
         <div class="db">
           <div class="dbt">Ejemplos en SDM <span class="dtag tp">quién firma</span></div>
           <div class="dbb"><ul>
@@ -476,7 +501,7 @@ body {
         <div class="db">
           <div class="dbt">Engineer → Owner <span class="dtag te">entregable</span></div>
           <div class="dbb"><ul>
-            <li>DQ Score del dataset en REPOX (mensual o ante incidente)</li>
+            <li>DQ Score del dataset en REPOX-Gov (mensual o ante incidente)</li>
             <li>Alerta de schema drift detectado en el sistema fuente</li>
             <li>Notificación de falla de ingesta con causa e impacto</li>
             <li>Linaje técnico disponible en Purview para auditoría</li>
@@ -488,12 +513,12 @@ body {
         <div class="int-hd">
           <span class="chip" style="background:#00bcd4;color:#060a0f">Data Engineer</span>
           <span class="arric">→</span>
-          <span class="chip" style="background:#0078d4;color:#fff">REPOX</span>
+          <span class="chip" style="background:#0078d4;color:#fff">REPOX-Gov</span>
         </div>
         <span class="itype te">Construcción y operación técnica</span>
-        <p class="int-desc">El Engineer construye y mantiene toda la infraestructura técnica de REPOX: pipelines Bronze→Gold, seguridad Azure y linaje técnico en Purview.</p>
+        <p class="int-desc">El Engineer construye y mantiene toda la infraestructura técnica de REPOX-Gov: pipelines Bronze→Gold, seguridad Azure y linaje técnico en Purview.</p>
         <div class="db">
-          <div class="dbt">Engineer → REPOX <span class="dtag te">entregables técnicos</span></div>
+          <div class="dbt">Engineer → REPOX-Gov <span class="dtag te">entregables técnicos</span></div>
           <div class="dbb"><ul>
             <li>Pipelines ADF / Databricks: ingesta incremental desde fuentes SDM</li>
             <li>Transformaciones Bronze → Silver → Gold con tests DQ integrados</li>
@@ -509,7 +534,7 @@ body {
         <div class="int-hd">
           <span class="chip" style="background:#9c27b0;color:#fff">Data Steward</span>
           <span class="arric">→</span>
-          <span class="chip" style="background:#0078d4;color:#fff">REPOX · Purview</span>
+          <span class="chip" style="background:#0078d4;color:#fff">REPOX-Gov · Purview</span>
         </div>
         <span class="itype tr">Gobernanza operativa</span>
         <p class="int-desc">El Steward opera la gobernanza diaria en Azure Purview: glosario, validación de fichas, Data Contracts y linaje de negocio entre fuentes, capas y tableros Power BI.</p>
@@ -529,12 +554,12 @@ body {
         <div class="int-hd">
           <span class="chip" style="background:#fb8c00;color:#060a0f">CISO / DPO</span>
           <span class="arric">→</span>
-          <span class="chip" style="background:#0078d4;color:#fff">REPOX</span>
+          <span class="chip" style="background:#0078d4;color:#fff">REPOX-Gov</span>
         </div>
         <span class="itype tp">Control de seguridad y privacidad</span>
-        <p class="int-desc">El CISO/DPO define los controles que REPOX implementa para PII y datos confidenciales, incluyendo datos de usuarios SDM sujetos a Ley 1581.</p>
+        <p class="int-desc">El CISO/DPO define los controles que REPOX-Gov implementa para PII y datos confidenciales, incluyendo datos de usuarios SDM sujetos a Ley 1581.</p>
         <div class="db">
-          <div class="dbt">CISO/DPO → REPOX <span class="dtag tp">controles</span></div>
+          <div class="dbt">CISO/DPO → REPOX-Gov <span class="dtag tp">controles</span></div>
           <div class="dbb"><ul>
             <li>Política de clasificación aplicada a todos los datasets en Purview</li>
             <li>Enmascaramiento dinámico para números de tarjeta, documentos, ubicación</li>
@@ -548,28 +573,34 @@ body {
 
       <div class="card" id="e-repox-consumer">
         <div class="int-hd">
-          <span class="chip" style="background:#0078d4;color:#fff">REPOX</span>
+          <span class="chip" style="background:#0078d4;color:#fff">REPOX-Gov</span>
           <span class="arric">→</span>
           <span class="chip" style="background:#43a047;color:#060a0f">Data Consumer</span>
         </div>
         <span class="itype tc">Consulta y explotación analítica</span>
-        <p class="int-desc">REPOX es el único punto de consulta autorizado. Los Consumers acceden a través de los servicios Azure integrados — nunca directamente a los sistemas fuente.</p>
+        <p class="int-desc">REPOX-Gov es el único punto de consulta autorizado. Los Consumers acceden a través de los servicios Azure integrados — nunca directamente a los sistemas fuente.</p>
         <div class="db">
           <div class="dbt">Canales de acceso <span class="dtag tx">plataforma Azure</span></div>
           <div class="dbb"><ul>
-            <li><strong>Power BI:</strong> tableros certificados Gold / semántica (acceso general SDM)</li>
+            <li><strong>Power BI:</strong> tableros certificados sobre Gold + capa Semántica (acceso según clasificación)</li>
             <li><strong>Synapse Analytics:</strong> SQL ad-hoc sobre Gold (aprobación del Data Owner)</li>
             <li><strong>Databricks:</strong> análisis avanzado y ML (acceso restringido)</li>
-            <li><strong>Azure Purview:</strong> descubrimiento, fichas, linaje y solicitud de acceso</li>
+          </ul></div>
+        </div>
+        <div class="db">
+          <div class="dbt">Descubrimiento y solicitud <span class="dtag tp">workflow</span></div>
+          <div class="dbb"><ul>
+            <li><strong>Azure Purview:</strong> punto de descubrimiento de fichas, linaje y solicitud de acceso — no se consultan datos, se navega el catálogo</li>
           </ul></div>
         </div>
         <div class="db">
           <div class="dbt">Reglas de acceso <span class="dtag tp">política</span></div>
           <div class="dbb"><ul>
-            <li>Power BI: todos los usuarios SDM con rol lector (sin trámite adicional)</li>
+            <li>Power BI — tableros públicos internos: acceso general SDM con rol lector</li>
+            <li>Power BI — tableros con datos Confidencial/Sensible: requieren autorización explícita del Data Owner</li>
             <li>Synapse / Databricks: solicitud aprobada por Data Owner en Purview</li>
-            <li>Bronze y Silver: solo Data Engineers / Scientists con aprobación explícita</li>
-            <li>PII enmascarado automáticamente para roles sin autorización CISO</li>
+            <li>Bronze y Silver: solo Data Engineers con aprobación explícita</li>
+            <li>PII enmascarado automáticamente para roles sin autorización CISO/DPO</li>
           </ul></div>
         </div>
       </div>
@@ -578,16 +609,16 @@ body {
         <div class="int-hd">
           <span class="chip" style="background:#4a5acd;color:#fff">Gov. Council</span>
           <span class="arric">→</span>
-          <span class="chip" style="background:#0078d4;color:#fff">REPOX</span>
+          <span class="chip" style="background:#0078d4;color:#fff">REPOX-Gov</span>
         </div>
         <span class="itype tp">Supervisión estratégica</span>
-        <p class="int-desc">El Council supervisa que REPOX cumple los estándares de gobernanza. Revisa completitud del catálogo, DQ Score por dominio y métricas de adopción.</p>
+        <p class="int-desc">El Council supervisa que REPOX-Gov cumple los estándares de gobernanza. Revisa completitud del catálogo, DQ Score por dominio y métricas de adopción.</p>
         <div class="db">
-          <div class="dbt">Council → REPOX <span class="dtag tp">supervisión</span></div>
+          <div class="dbt">Council → REPOX-Gov <span class="dtag tp">supervisión</span></div>
           <div class="dbb"><ul>
             <li>Auditoría semestral de completitud del catálogo en Purview</li>
             <li>Revisión de KPIs: % datasets certificados, DQ Score promedio, MTTR</li>
-            <li>Aprobación de nuevas fuentes que se incorporan a REPOX</li>
+            <li>Aprobación de nuevas fuentes que se incorporan a REPOX-Gov</li>
             <li>Validación de Data Contracts cross-dominio vigentes</li>
           </ul></div>
         </div>
@@ -606,7 +637,7 @@ body {
           <div class="dbb"><ul>
             <li>Visión y principios de gobernanza aprobados</li>
             <li>Prioridades del roadmap de madurez de datos</li>
-            <li>Presupuesto para herramientas y roles dedicados en REPOX</li>
+            <li>Presupuesto para herramientas y roles dedicados en REPOX-Gov</li>
           </ul></div>
         </div>
         <div class="db">
@@ -614,7 +645,6 @@ body {
           <div class="dbb"><ul>
             <li>Dashboard de KPIs de gobernanza para reporte ejecutivo</li>
             <li>Actas de decisiones y excepciones aprobadas</li>
-            <li>Diagnóstico de madurez actualizado (trimestral)</li>
           </ul></div>
         </div>
       </div>
@@ -637,7 +667,7 @@ const svgEl = document.getElementById('svg');
   │                                                     │
   │  Owner(75,210) Steward(285,210) Eng(570,210)        │  r=36
   │                                                     │
-  │                   REPOX(420,390)                    │  r=65
+  │                   REPOX-Gov(420,390)                    │  r=65
   │  Src(95,500)                       Consumer(700,390)│  r=42 / r=36
   └─────────────────────────────────────────────────────┘
 
@@ -647,8 +677,8 @@ const svgEl = document.getElementById('svg');
     Owner↔Steward: 285-75=210,  210-36-36=138 ✓
     Steward↔Eng:   570-285=285, 285-36-36=213 ✓
     Eng↔CISO (diag): safe, different rows
-    REPOX↔Consumer: 700-420=280, 280-65-36=179 ✓
-    REPOX↔Src (diag): safe distance
+    REPOX-Gov↔Consumer: 700-420=280, 280-65-36=179 ✓
+    REPOX-Gov↔Src (diag): safe distance
 */
 
 const N = [
@@ -658,9 +688,10 @@ const N = [
   { id:'owner',    x:135, y:210,  l:['Data','Owner'],      c:'#f4511e', r:36 },
   { id:'steward',  x:345, y:210,  l:['Data','Steward'],    c:'#9c27b0', r:36 },
   { id:'eng',      x:630, y: 65,  l:['Data','Engineer'],   c:'#00bcd4', r:36 },
-  { id:'repox',    x:480, y:390,  l:['REPOX'],             c:'#0078d4', r:65 },
+  { id:'repox',    x:480, y:390,  l:['REPOX-Gov'],         c:'#0078d4', r:65 },
   { id:'src',      x:155, y:500,  l:['Sistemas','Fuente SDM'], c:'#37474f', r:42 },
   { id:'consumer', x:760, y:390,  l:['Data','Consumer'],   c:'#43a047', r:36 },
+  { id:'policy',   x:480, y:512,  l:['Policy','Engine'],   c:'#1565c0', r:26 },
 ];
 
 /*
@@ -725,12 +756,23 @@ function qmid(x1,y1,x2,y2,cv,t=0.5){
   return [u*u*x1+2*t*u*cx+t*t*x2, u*u*y1+2*t*u*cy+t*t*y2];
 }
 
-// ── REPOX GLOW ────────────────────────────────────────────────────────────
+// ── REPOX-Gov GLOW ────────────────────────────────────────────────────────────
 const rn=gN('repox');
 const gl=document.createElementNS(NS,'circle');
 gl.setAttribute('cx',rn.x); gl.setAttribute('cy',rn.y); gl.setAttribute('r','110');
 gl.setAttribute('fill','url(#rg)');
 svgEl.appendChild(gl);
+
+// ── POLICY ENGINE TETHER ──────────────────────────────────────────────────
+// Conector sutil que muestra que Policy Engine es un sub-componente de REPOX-Gov
+const pn=gN('policy');
+const tether=document.createElementNS(NS,'line');
+tether.setAttribute('x1',rn.x); tether.setAttribute('y1',rn.y+rn.r);
+tether.setAttribute('x2',pn.x); tether.setAttribute('y2',pn.y-pn.r);
+tether.setAttribute('stroke','#1565c0'); tether.setAttribute('stroke-width','1.5');
+tether.setAttribute('stroke-opacity','.35');
+tether.setAttribute('stroke-dasharray','2 3');
+svgEl.appendChild(tether);
 
 // ── DRAW EDGES ────────────────────────────────────────────────────────────
 E.forEach(e=>{
@@ -835,7 +877,7 @@ N.forEach(n=>{
     g.appendChild(t);
   });
 
-  // REPOX subtitle removed
+  // REPOX-Gov subtitle removed
 
   g.addEventListener('click',()=>selNode(n.id));
   svgEl.appendChild(g);
@@ -843,32 +885,34 @@ N.forEach(n=>{
 
 // ── PANEL ─────────────────────────────────────────────────────────────────
 const TT={
-  cdo:'CDO', council:'Gov. Council', ciso:'CISO / DPO',
+  cdo:'CDO — Chief Data Officer', council:'Gov. Council', ciso:'CISO / DPO — Chief Information Security Officer / Data Protection Officer',
   owner:'Data Owner', steward:'Data Steward', eng:'Data Engineer',
-  repox:'REPOX — Repositorio Unificado SDM',
+  repox:'REPOX-Gov — Plataforma de Gobernanza SDM (propuesta)',
   src:'Sistemas Fuente SDM', consumer:'Data Consumer',
+  policy:'Policy Engine / Gate — pieza que ejecuta los controles',
 };
 const TD={
-  cdo:'Aprueba REPOX como plataforma institucional que materializa la gobernanza SDM',
-  council:'Define las políticas que REPOX ejecuta técnicamente como controles activos',
-  ciso:'Define controles de seguridad y privacidad que REPOX implementa y audita',
+  cdo:'Aprueba REPOX-Gov como plataforma institucional que materializa la gobernanza SDM',
+  council:'Define las políticas que REPOX-Gov ejecuta técnicamente como controles activos',
+  ciso:'Define controles de seguridad y privacidad que REPOX-Gov implementa y audita',
   owner:'Dependencia SDM que administra el sistema fuente — OSV, DIM, SCC y otras',
-  steward:'Opera los instrumentos de gobernanza que REPOX expone: catálogo, DQ, linaje',
-  eng:'Construye e implementa técnicamente los controles de gobernanza en REPOX',
-  repox:'Plataforma que materializa y ejecuta los controles de gobernanza de la SDM sobre Azure',
+  steward:'Opera los instrumentos de gobernanza que REPOX-Gov expone: catálogo, DQ, linaje',
+  eng:'Construye e implementa técnicamente los controles de gobernanza en REPOX-Gov',
+  repox:'Propuesta de materializar la gobernanza de la SDM sobre Azure — reestructurando REPOX o tomando su arquitectura como base (borrador)',
   src:'Sistemas operacionales SDM — cada uno con su dependencia Data Owner responsable',
-  consumer:'Accede solo a datos que REPOX ha certificado — gobernanza aplicada antes del consumo',
+  consumer:'Accede solo a datos que REPOX-Gov ha certificado — gobernanza aplicada antes del consumo',
+  policy:'ADF + Azure Functions + reglas SQL que consultan Purview y ejecutan los bloqueos — Purview cataloga, el Policy Engine controla',
 };
 const EMETA={
-  'src-repox':     {from:'Fuentes SDM',  to:'REPOX · Bronze'},
+  'src-repox':     {from:'Fuentes SDM',  to:'REPOX-Gov · Bronze'},
   'owner-purview': {from:'Data Owner',   to:'Azure Purview'},
   'owner-eng':     {from:'Data Owner',   to:'Data Engineer'},
-  'eng-repox':     {from:'Data Engineer',to:'REPOX'},
-  'steward-repox': {from:'Data Steward', to:'REPOX · Purview'},
-  'ciso-repox':    {from:'CISO / DPO',   to:'REPOX'},
-  'council-repox': {from:'Gov. Council', to:'REPOX'},
+  'eng-repox':     {from:'Data Engineer',to:'REPOX-Gov'},
+  'steward-repox': {from:'Data Steward', to:'REPOX-Gov · Purview'},
+  'ciso-repox':    {from:'CISO / DPO',   to:'REPOX-Gov'},
+  'council-repox': {from:'Gov. Council', to:'REPOX-Gov'},
   'cdo-council':   {from:'CDO',          to:'Gov. Council'},
-  'repox-consumer':{from:'REPOX',        to:'Data Consumer'},
+  'repox-consumer':{from:'REPOX-Gov',    to:'Data Consumer'},
 };
 
 function clearAll(){
