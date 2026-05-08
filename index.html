@@ -194,7 +194,7 @@ body {
     <div class="rpill">REPOX-GOV</div>
     <div>
       <div class="htitle">REPOX-Gov · Plataforma de Gobernanza de Datos · SDM</div>
-      <div class="hsub">Borrador conceptual — dos caminos posibles: reestructurar la plataforma REPOX actual, o tomar su arquitectura como base para construir la plataforma de gobernanza institucional sobre Azure</div>
+      <div class="hsub">Borrador conceptual — Tres caminos posibles: reestructurar REPOX, tomar su arquitectura como base para una nueva plataforma, o usar sus recursos como sandbox para pilotos de gobernanza sin afectar su propósito actual</div>
     </div>
   </div>
 </div>
@@ -226,7 +226,7 @@ body {
     <div class="pbody">
       <div class="def" id="def">
         <div class="def-ico">⬡</div>
-        <div class="def-txt">REPOX-Gov es la propuesta de materializar la gobernanza de datos sobre la base de REPOX — ya sea reestructurando la plataforma actual o tomando su arquitectura como base para una nueva implementación. Selecciona un nodo o arista para explorar cómo cada rol interactuaría con la plataforma.</div>
+        <div class="def-txt">REPOX-Gov es la propuesta de materializar la gobernanza de datos sobre la base de REPOX. Hay tres caminos posibles: reestructurar la plataforma actual, tomar su arquitectura como base para una nueva implementación, o usar sus recursos como sandbox para pilotos sin afectar su propósito actual. Selecciona un nodo o arista para explorar cómo cada rol interactuaría con la plataforma.</div>
       </div>
 
       <!-- ══ NODOS ══ -->
@@ -260,7 +260,7 @@ body {
         <div class="desc">Define los controles de seguridad y privacidad que <strong>REPOX-Gov ejecuta técnicamente</strong>. Cada control aprobado por el CISO/DPO se implementa como una regla activa en la plataforma: enmascaramiento, auditoría, retención y acceso. Datos de usuarios SDM sujetos a Ley 1581.</div>
         <div class="sl">Controles de gobernanza ejecutados por REPOX-Gov</div>
         <ul class="lst">
-          <li><strong>Control de PII:</strong> el <strong>Policy Engine</strong> bloquea la ingesta de datos sensibles sin aprobación previa del CISO/DPO (consulta tags de Purview)</li>
+          <li><strong>Control de PII</strong> (Personally Identifiable Information — datos personales identificables: cédula, placa vinculada al RDA, ubicación GPS, tarjeta TuLlave)<strong>:</strong> el <strong>Policy Engine</strong> bloquea la ingesta de datos sensibles sin aprobación previa del CISO/DPO (consulta tags de Purview)</li>
           <li><strong>Enmascaramiento dinámico:</strong> Synapse/Databricks aplican la política aprobada vía reglas SQL del Policy Engine — el Consumer nunca ve el dato crudo si no tiene autorización</li>
           <li><strong>Auditoría continua:</strong> Azure Monitor registra y retiene cada acceso a datos Confidencial/Sensible</li>
           <li><strong>Cumplimiento Ley 1581:</strong> REPOX-Gov anonimiza PII de usuarios SDM en Silver y aplica retención automática</li>
@@ -355,7 +355,7 @@ body {
 
       <div class="card" id="n-repox">
         <div class="badge" style="background:#0078d4;color:#fff"><span class="dot" style="background:#fff"></span>REPOX-GOV</div>
-        <div class="desc"><strong>REPOX-Gov es la propuesta de materializar la gobernanza de datos de la SDM sobre la base de la plataforma REPOX.</strong> Existen dos caminos posibles para llegar al mismo resultado: <strong>(A)</strong> reestructurar la plataforma REPOX existente para que ejecute los controles de gobernanza, o <strong>(B)</strong> tomar la arquitectura de REPOX como base de referencia y construir la plataforma de gobernanza sobre ese diseño. En cualquiera de los dos casos, las políticas del Council, las reglas del CISO/DPO, las responsabilidades del Data Owner y los estándares del Steward se vuelven controles técnicos activos y auditables.</div>
+        <div class="desc"><strong>REPOX-Gov es la propuesta de materializar la gobernanza de datos de la SDM sobre la base de la plataforma REPOX.</strong> Existen tres caminos posibles: <strong>(A)</strong> reestructurar la plataforma REPOX existente para que ejecute los controles de gobernanza; <strong>(B)</strong> tomar la arquitectura de REPOX como base de referencia y construir una nueva plataforma sobre ese diseño; o <strong>(C)</strong> usar los recursos de REPOX, sin afectar su propósito actual, como sandbox para pruebas piloto de gobernanza — la opción de menor riesgo y mayor aprendizaje temprano. En cualquiera de los tres casos, las políticas del Council, las reglas del CISO/DPO, las responsabilidades del Data Owner y los estándares del Steward se vuelven controles técnicos activos y auditables.</div>
         <div class="sl">Controles de gobernanza que REPOX-Gov ejecuta activamente</div>
         <ul class="lst">
           <li><strong>Control de ingesta:</strong> ningún dato entra sin Data Contract firmado por el Data Owner — <em>aplicado por el Policy Engine en ADF</em></li>
@@ -410,6 +410,33 @@ body {
       </div>
 
       <!-- ══ INTERACCIONES ══ -->
+      <div class="card" id="e-owner-src">
+        <div class="int-hd">
+          <span class="chip" style="background:#f4511e;color:#fff">Data Owner</span>
+          <span class="arric">→</span>
+          <span class="chip" style="background:#37474f;color:#fff">Sistemas Fuente SDM</span>
+        </div>
+        <span class="itype tp">Responsabilidad administrativa</span>
+        <p class="int-desc">El Data Owner (la dependencia) <strong>administra</strong> los sistemas fuente que producen los datos. Es una relación organizacional, no un flujo de datos: el Owner es la persona/oficina con autoridad institucional sobre los sistemas técnicos. Por eso aparece como línea punteada — no representa movimiento de información sino responsabilidad estructural.</p>
+        <div class="db">
+          <div class="dbt">Quién administra qué <span class="dtag tp">mapeo SDM</span></div>
+          <div class="dbb"><ul>
+            <li><strong>OSV</strong> administra el sistema de siniestros viales</li>
+            <li><strong>DIM</strong> administra los sistemas de bicicletas, estudios y monitoreo de movilidad</li>
+            <li><strong>SCC</strong> administra el sistema de comparendos y el RDA</li>
+          </ul></div>
+        </div>
+        <div class="db">
+          <div class="dbt">Reglas de la relación <span class="dtag tp">gobernanza</span></div>
+          <div class="dbb"><ul>
+            <li>Un Owner puede administrar múltiples sistemas fuente</li>
+            <li>Un sistema fuente tiene exactamente un Owner — la responsabilidad debe ser inequívoca</li>
+            <li>El Owner es del lado del negocio, no de TI — conoce el significado del dato</li>
+            <li>Sin Owner identificado, el sistema no puede entrar a REPOX-Gov</li>
+          </ul></div>
+        </div>
+      </div>
+
       <div class="card" id="e-src-repox">
         <div class="int-hd">
           <span class="chip" style="background:#37474f;color:#fff">Fuentes SDM</span>
@@ -708,6 +735,7 @@ const N = [
 const E = [
   { id:'cdo-council',    from:'cdo',     to:'council',  l:['Mandato','estratégico'],   c:'#4a5acd', d:false, cv:-18 },
   { id:'src-repox',      from:'src',     to:'repox',    l:['Copia raw','→ Bronze'],    c:'#0078d4', d:true,  cv: 30 },
+  { id:'owner-src',      from:'owner',   to:'src',      l:['administra'],              c:'#f4511e', d:true,  cv:-25 },
   { id:'owner-purview',  from:'owner',   to:'repox',    l:['Mantiene','catálogo'],     c:'#f4511e', d:false, cv:-70 },
   { id:'owner-eng',      from:'owner',   to:'eng',      l:['Autoriza','ingesta'],      c:'#f4511e', d:false, cv:-55, lp:0.25 },
   { id:'steward-repox',  from:'steward', to:'repox',    l:['Glosario','& DQ'],         c:'#9c27b0', d:false, cv:-15 },
@@ -898,13 +926,14 @@ const TD={
   owner:'Dependencia SDM que administra el sistema fuente — OSV, DIM, SCC y otras',
   steward:'Opera los instrumentos de gobernanza que REPOX-Gov expone: catálogo, DQ, linaje',
   eng:'Construye e implementa técnicamente los controles de gobernanza en REPOX-Gov',
-  repox:'Propuesta de materializar la gobernanza de la SDM sobre Azure — reestructurando REPOX o tomando su arquitectura como base (borrador)',
+  repox:'Propuesta de materializar la gobernanza de la SDM sobre Azure — reestructurando REPOX, tomando su arquitectura como base, o usando sus recursos como sandbox piloto (borrador)',
   src:'Sistemas operacionales SDM — cada uno con su dependencia Data Owner responsable',
   consumer:'Accede solo a datos que REPOX-Gov ha certificado — gobernanza aplicada antes del consumo',
   policy:'ADF + Azure Functions + reglas SQL que consultan Purview y ejecutan los bloqueos — Purview cataloga, el Policy Engine controla',
 };
 const EMETA={
   'src-repox':     {from:'Fuentes SDM',  to:'REPOX-Gov · Bronze'},
+  'owner-src':     {from:'Data Owner',   to:'Sistemas Fuente SDM'},
   'owner-purview': {from:'Data Owner',   to:'Azure Purview'},
   'owner-eng':     {from:'Data Owner',   to:'Data Engineer'},
   'eng-repox':     {from:'Data Engineer',to:'REPOX-Gov'},
